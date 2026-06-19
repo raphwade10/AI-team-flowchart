@@ -4,7 +4,250 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Edge Academy · MyRepublic AI Team</title>
-<link rel="stylesheet" href="styles.css" />
+<style>
+:root {
+  /* Edge Academy brand palette */
+  --bg-top: #ffffff;
+  --bg-bottom: #eaf0fb;
+  --ink: #1e2a3a;
+  --ink-soft: #51617a;
+  --card: #ffffff;
+  --line: #e1e8f3;
+  --wire: #9fb0c6;
+  --brand: #2f7fe8;
+  --brand-ink: #1d5fc4;
+  --brand-teal: #16b8c4;
+  --focus: #1d5fc4;
+  --danger: #d33b54;
+
+  --edge: #2f7fe8;            --edge-ink: #1d5fc4;
+  --consulting: #0fb6a6;      --consulting-ink: #0f766e;
+  --marketplace: #7b5cff;     --marketplace-ink: #6028d9;
+  --bespoke: #ef5da8;         --bespoke-ink: #be185d;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(1200px 500px at 80% -10%, #f1e9ff 0%, rgba(241,233,255,0) 55%),
+    linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
+  min-height: 100vh;
+}
+
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; border-radius: 10px; }
+:focus:not(:focus-visible) { outline: none; }
+
+svg { display: block; }
+.icon { width: 1em; height: 1em; flex: 0 0 auto; }
+
+/* ---------- top brand bar ---------- */
+.topbar {
+  display: flex; align-items: center; gap: 14px; padding: 12px 24px;
+  background: rgba(255,255,255,.9); backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 30;
+}
+.logo { display: flex; align-items: center; gap: 11px; text-decoration: none; cursor: pointer; background: none; border: none; padding: 4px 6px; border-radius: 10px; }
+.logo svg.mark { width: 40px; height: 40px; }
+.logo .word { line-height: .92; text-align: left; }
+.logo .word b { display: block; font-weight: 800; letter-spacing: 1px; font-size: 1.02rem; color: var(--ink); }
+.logo .word span { display: block; font-weight: 800; letter-spacing: 4px; font-size: .72rem; color: var(--brand-ink); }
+.topbar .spacer { flex: 1; }
+.topbar .crumb { font-size: .82rem; color: var(--ink-soft); font-weight: 600; }
+
+/* toolbar buttons */
+.toolbar { display: flex; align-items: center; gap: 8px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 6px; min-height: 38px;
+  font: inherit; font-size: .82rem; font-weight: 600; cursor: pointer;
+  padding: 8px 13px; border-radius: 10px; border: 1px solid var(--brand);
+  background: var(--brand); color: #fff; transition: filter .15s ease, background .15s ease;
+}
+.btn:hover { filter: brightness(1.05); }
+.btn.ghost { background: #fff; color: var(--brand-ink); border-color: var(--line); }
+.btn.ghost:hover { border-color: var(--brand); background: #f4f8ff; }
+.btn.danger { background: #fff; color: var(--danger); border-color: #f0c2cb; }
+.btn.danger:hover { background: #fdf2f4; }
+.btn .icon { width: 16px; height: 16px; }
+.edit-only { display: none; }
+body.editing .edit-only { display: inline-flex; }
+body.editing #editToggle { background: #fff; color: var(--brand-ink); border-color: var(--brand); }
+
+.wrap { max-width: 1120px; margin: 0 auto; padding: 30px 18px 80px; }
+
+.editmode-banner {
+  display: none; max-width: 1120px; margin: 14px auto -6px; padding: 9px 14px;
+  background: #fff7e6; border: 1px solid #ffe2a8; color: #8a6212;
+  border-radius: 10px; font-size: .82rem; text-align: center;
+}
+body.editing .editmode-banner { display: block; }
+
+.hero { text-align: center; margin-bottom: 22px; }
+.hero h1 { margin: 0 0 8px; font-weight: 800; letter-spacing: -.5px; text-transform: uppercase; font-size: clamp(1.5rem, 4vw, 2.4rem); color: var(--ink); }
+.hero p { margin: 0; color: var(--ink-soft); font-size: .92rem; }
+
+.legend { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin: 20px auto 8px; }
+.legend span { display: inline-flex; align-items: center; gap: 7px; font-size: .82rem; color: var(--ink-soft); }
+.swatch { width: 13px; height: 13px; border-radius: 4px; display: inline-block; }
+.legend .wirekey { width: 18px; height: 0; border-top: 2px dashed var(--wire); }
+
+/* ---------- org canvas with connector layer ---------- */
+.org { position: relative; margin-top: 28px; }
+.wires { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; overflow: visible; }
+.org > *:not(.wires) { position: relative; z-index: 1; }
+
+.row-head { display: flex; justify-content: center; }
+.row-people { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin-top: 64px; align-items: flex-start; }
+.section-label { text-align: center; color: var(--ink-soft); font-size: .72rem; text-transform: uppercase; letter-spacing: .14em; margin: 58px 0 18px; }
+.row-projects { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; align-items: start; }
+@media (max-width: 860px) { .row-projects { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (max-width: 520px) { .row-projects { grid-template-columns: 1fr; } }
+
+/* ---------- cards ---------- */
+.card {
+  background: var(--card); border: 1px solid var(--line); border-radius: 14px;
+  padding: 13px 18px; text-align: center; position: relative;
+  box-shadow: 0 6px 18px rgba(31,52,90,.06); transition: transform .18s ease, box-shadow .18s ease;
+}
+.card:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(31,52,90,.12); }
+.card .title { font-weight: 700; font-size: .98rem; }
+.card .sub { font-size: .74rem; color: var(--ink-soft); margin-top: 2px; }
+
+.head-node {
+  width: 270px; border: 1px solid transparent;
+  background: linear-gradient(var(--card), var(--card)) padding-box, linear-gradient(135deg, var(--brand-teal), var(--brand)) border-box;
+}
+.head-node .title { font-size: 1.1rem; }
+.person-node { width: 152px; }
+body.editing .person-node { width: 200px; text-align: left; }
+body.editing .head-node { width: 300px; text-align: left; }
+
+/* ---------- projects ---------- */
+.project { background: var(--card); border: 1px solid var(--line); border-top: 4px solid var(--accent); border-radius: 16px; overflow: hidden; box-shadow: 0 6px 18px rgba(31,52,90,.06); }
+.project-header {
+  width: 100%; min-height: 44px; padding: 15px 16px; cursor: pointer; user-select: none; text-align: left;
+  background: var(--card); border: none;
+  display: flex; align-items: center; justify-content: space-between; gap: 10px; transition: background .18s ease;
+}
+.project-header:hover { background: rgba(47,127,232,.05); }
+.p-title { font-weight: 800; font-size: 1.18rem; color: var(--accent-ink); }
+.owners { font-size: .76rem; color: var(--ink-soft); margin-top: 3px; }
+.chevron { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; color: var(--accent-ink); background: color-mix(in srgb, var(--accent) 14%, white); transition: transform .25s ease; font-size: 14px; }
+.project.open .chevron { transform: rotate(90deg); }
+
+.leaves { max-height: 0; overflow: hidden; transition: max-height .3s ease; padding: 0 14px; }
+.project.open .leaves { max-height: 1200px; padding-bottom: 14px; }
+body.editing .leaves { max-height: none; padding-bottom: 14px; } /* always open while editing */
+
+.leaf {
+  position: relative; width: 100%; min-height: 44px; margin-top: 10px; padding: 11px 13px; text-align: left;
+  border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 10px; font-size: .9rem; background: #fbfdff;
+  display: flex; align-items: center; gap: 10px; color: var(--ink);
+  transition: background .18s ease, transform .15s ease, box-shadow .18s ease;
+}
+.leaf .l-ico { width: 18px; height: 18px; color: var(--accent-ink); }
+.leaf .lbl { flex: 1; font-weight: 600; }
+.leaf[data-nav]:not([data-nav="none"]) { cursor: pointer; }
+.leaf[data-nav]:not([data-nav="none"]):hover { background: color-mix(in srgb, var(--accent) 10%, white); transform: translateX(2px); box-shadow: 0 4px 12px rgba(31,52,90,.08); }
+.leaf .open-ico { width: 15px; height: 15px; color: var(--ink-soft); }
+
+/* ---------- editable fields ---------- */
+.edit-field { display: block; margin-top: 8px; }
+.edit-field .lab { font-size: .68rem; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-soft); font-weight: 700; }
+.edit-input, select.edit-input, textarea.edit-input {
+  width: 100%; font: inherit; font-size: .85rem; padding: 7px 9px; margin-top: 3px;
+  border: 1px solid var(--line); border-radius: 8px; background: #fff; color: var(--ink);
+}
+textarea.edit-input { resize: vertical; min-height: 46px; line-height: 1.4; }
+.del-btn {
+  flex: 0 0 auto; width: 26px; height: 26px; border-radius: 7px; cursor: pointer;
+  border: 1px solid #f0c2cb; background: #fff; color: var(--danger);
+  display: grid; place-items: center; font-size: 16px; line-height: 1;
+}
+.del-btn:hover { background: #fdf2f4; }
+.card .del-btn { position: absolute; top: 8px; right: 8px; }
+.add-card, .add-leaf {
+  border: 1px dashed #b9c6da; background: #f7faff; color: var(--brand-ink);
+  border-radius: 12px; cursor: pointer; font-weight: 700; font-size: .85rem;
+  display: grid; place-items: center; min-height: 44px;
+}
+.add-card { width: 152px; }
+.add-leaf { margin-top: 10px; padding: 10px; }
+.add-card:hover, .add-leaf:hover { background: #eef4ff; border-color: var(--brand); }
+.team-pick { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px 12px; }
+.team-pick label { font-size: .78rem; display: inline-flex; align-items: center; gap: 5px; color: var(--ink-soft); }
+
+/* maintenance panel */
+.maint {
+  max-width: 720px; margin: 40px auto 0; background: #fff; border: 1px solid var(--line);
+  border-radius: 16px; padding: 22px 24px; box-shadow: 0 6px 18px rgba(31,52,90,.06);
+}
+.maint h3 { margin: 0 0 4px; font-size: 1rem; }
+.maint p.note { margin: 0 0 16px; font-size: .82rem; color: var(--ink-soft); line-height: 1.5; }
+.maint .ctl { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.switch { display: inline-flex; align-items: center; gap: 9px; font-weight: 600; font-size: .88rem; cursor: pointer; }
+.switch input { width: 18px; height: 18px; accent-color: var(--brand); }
+.maint select { font: inherit; font-size: .86rem; padding: 8px 10px; border: 1px solid var(--line); border-radius: 9px; background: #fff; color: var(--ink); }
+.maint .cleanup-report { margin-top: 14px; font-size: .82rem; color: var(--ink-soft); }
+
+/* ---------- content pages ---------- */
+.page-card { background: var(--card); border: 1px solid var(--line); border-top: 5px solid var(--accent); border-radius: 18px; padding: 30px; box-shadow: 0 10px 30px rgba(31,52,90,.08); }
+.badge { display: inline-flex; align-items: center; gap: 6px; font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent-ink); background: color-mix(in srgb, var(--accent) 12%, white); padding: 6px 11px; border-radius: 999px; margin-bottom: 14px; }
+.page-card h2 { margin: 0 0 10px; font-size: clamp(1.4rem, 3vw, 2rem); text-transform: uppercase; letter-spacing: -.5px; }
+.page-card p.lead { color: var(--ink-soft); margin: 0; max-width: 60ch; line-height: 1.6; }
+.grid-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; margin-top: 24px; }
+.tile { background: #fbfdff; border: 1px solid var(--line); border-radius: 14px; padding: 18px; cursor: pointer; text-decoration: none; color: inherit; min-height: 44px; display: flex; flex-direction: column; gap: 8px; transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease; position: relative; }
+.tile:hover { transform: translateY(-3px); box-shadow: 0 12px 26px rgba(31,52,90,.12); border-color: var(--brand); }
+.t-icon { width: 40px; height: 40px; border-radius: 11px; display: grid; place-items: center; color: #fff; }
+.t-icon .icon { width: 22px; height: 22px; }
+.t-title { font-weight: 700; display: flex; align-items: center; gap: 7px; }
+.t-title .open-ico { width: 14px; height: 14px; color: var(--ink-soft); }
+.t-sub { font-size: .8rem; color: var(--ink-soft); }
+.back { display: inline-flex; align-items: center; gap: 7px; min-height: 44px; margin-bottom: 18px; cursor: pointer; padding: 8px 14px 8px 10px; font-size: .85rem; font-weight: 600; color: var(--brand-ink); background: #fff; border: 1px solid var(--line); border-radius: 10px; transition: background .18s ease, border-color .18s ease; }
+.back:hover { background: #f4f8ff; border-color: var(--brand); }
+.back .icon { width: 16px; height: 16px; }
+.soon { margin-top: 22px; padding: 16px 18px; border-radius: 12px; background: #fbfdff; border: 1px dashed var(--line); color: var(--ink-soft); font-size: .9rem; line-height: 1.55; }
+
+.hint { text-align: center; color: var(--ink-soft); font-size: .78rem; margin-top: 36px; }
+.footnote { text-align: center; color: var(--ink-soft); font-size: .72rem; margin-top: 18px; opacity: .8; }
+
+/* ---------- tooltips ---------- */
+[data-tip]:hover::after, [data-tip]:focus-visible::after {
+  content: attr(data-tip); position: absolute; left: 50%; bottom: calc(100% + 9px); transform: translateX(-50%);
+  background: var(--ink); color: #fff; padding: 8px 11px; border-radius: 8px; font-size: .74rem; font-weight: 500;
+  width: max-content; max-width: 240px; text-align: center; box-shadow: 0 8px 20px rgba(0,0,0,.25); z-index: 50; pointer-events: none;
+}
+[data-tip]:hover::before, [data-tip]:focus-visible::before {
+  content: ""; position: absolute; left: 50%; bottom: calc(100% + 3px); transform: translateX(-50%);
+  border: 6px solid transparent; border-top-color: var(--ink); z-index: 50; pointer-events: none;
+}
+body.editing [data-tip]:hover::after, body.editing [data-tip]:hover::before { display: none; } /* don't fight inputs while editing */
+.leaf[data-tip]:hover::after { bottom: auto; top: calc(100% + 9px); }
+.leaf[data-tip]:hover::before { bottom: auto; top: calc(100% + 3px); border-top-color: transparent; border-bottom-color: var(--ink); }
+
+/* toast */
+.toast {
+  position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%);
+  background: var(--ink); color: #fff; padding: 12px 18px; border-radius: 12px;
+  font-size: .85rem; max-width: 90vw; box-shadow: 0 12px 30px rgba(0,0,0,.3); z-index: 100;
+  opacity: 0; pointer-events: none; transition: opacity .25s ease, transform .25s ease;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+@media (max-width: 600px) {
+  .topbar { padding: 10px 14px; flex-wrap: wrap; }
+  .topbar .crumb { display: none; }
+  .wrap { padding: 22px 14px 60px; }
+  .page-card { padding: 22px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition-duration: .001ms !important; animation-duration: .001ms !important; }
+  .card:hover, .tile:hover, .leaf:hover { transform: none; }
+}
+</style>
 </head>
 <body>
   <div class="topbar">
@@ -30,10 +273,726 @@
 
   <div class="editmode-banner">Edit mode — changes autosave to this browser. Use <strong>Export</strong> to share them with others.</div>
 
-  <div class="wrap" id="app"><!-- rendered by app.js --></div>
+  <div class="wrap" id="app"><!-- rendered by the script below --></div>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="app.js"></script>
+<script>
+/* =========================================================================
+   MyRepublic AI Team — connected flowchart (self-contained single file)
+   Single source of editable content lives in DEFAULT_DATA below.
+   Anyone with the file can edit content in the browser (Edit button),
+   which autosaves to this browser, and can Export/Import a JSON to share.
+   ========================================================================= */
+
+const STORAGE_KEY = "mr-ai-flowchart-v1";
+
+/* ---- default content (used on first load / Reset) ---- */
+const DEFAULT_DATA = {
+  settings: { autoCleanup: false, retentionMonths: 6 },
+  head: { name: "Imran", role: "Head of AI", tip: "Head of AI — oversees the entire AI team and all projects." },
+  people: [
+    { id: "jeremy",   name: "Jeremy",    tip: "Works across Edge Academy, Consulting & Marketplace." },
+    { id: "raph",     name: "Raph",      tip: "Works on Edge Academy." },
+    { id: "kenny",    name: "Kenny",     tip: "Owns Bespoke projects." },
+    { id: "qianqian", name: "Qian Qian", tip: "Works on Marketplace." },
+    { id: "joel",     name: "Joel",      tip: "Works on Consulting." },
+  ],
+  projects: [
+    { id: "edge", name: "Edge Academy", accent: "edge", team: ["jeremy","raph"], tip: "Practical, hands-on AI & automation courses.",
+      leaves: [
+        { id: "courses", lbl: "Courses",      nav: "view", target: "courses", tip: "Open the full course catalogue" },
+        { id: "skool",   lbl: "Skool",        nav: "ext",  target: "https://www.skool.com/edge-academy-1587", tip: "Join our Skool community" },
+        { id: "social",  lbl: "Social Media", nav: "view", target: "social",  tip: "Instagram & LinkedIn" },
+      ] },
+    { id: "consulting", name: "Consulting", accent: "consulting", team: ["jeremy","joel"], tip: "Advisory & implementation engagements.",
+      leaves: [
+        { id: "free", lbl: "Free Tier", nav: "page", target: "free-tier", tip: "Open the Free Tier page" },
+        { id: "paid", lbl: "Paid Tier", nav: "page", target: "paid-tier", tip: "Open the Paid Tier page" },
+      ] },
+    { id: "marketplace", name: "Marketplace", accent: "marketplace", team: ["jeremy","qianqian"], tip: "Platform & marketplace products.",
+      leaves: [
+        { id: "chatbot", lbl: "AI Chatbot",              nav: "page", target: "ai-chatbot",              tip: "Open the AI Chatbot page" },
+        { id: "integ",   lbl: "AI Integration Services", nav: "page", target: "ai-integration-services", tip: "Open the AI Integration Services page" },
+      ] },
+    { id: "bespoke", name: "Bespoke", accent: "bespoke", team: ["kenny"], tip: "Custom, client-specific builds.",
+      leaves: [
+        { id: "pa", lbl: "Product A", nav: "none", target: "", tip: "Flagship bespoke build." },
+        { id: "pb", lbl: "Product B", nav: "none", target: "", tip: "Secondary bespoke build." },
+      ] },
+  ],
+  pages: {
+    "free-tier":               { title: "Free Tier",               project: "Consulting",  accent: "consulting",  desc: "Entry-level consulting engagement — assessment and starter guidance at no cost." },
+    "paid-tier":               { title: "Paid Tier",               project: "Consulting",  accent: "consulting",  desc: "Full paid advisory and implementation engagement with the AI team." },
+    "ai-chatbot":              { title: "AI Chatbot",              project: "Marketplace", accent: "marketplace", desc: "Conversational AI chatbot product available through the Marketplace." },
+    "ai-integration-services": { title: "AI Integration Services", project: "Marketplace", accent: "marketplace", desc: "Connect AI capabilities into your existing systems and workflows." },
+  },
+  courses: [
+    { slug: "ai-foundations",      title: "AI Foundations",          sub: "Start here" },
+    { slug: "prompt-engineering",  title: "Prompt Engineering",      sub: "Core skill" },
+    { slug: "workflow-automation", title: "Workflow Automation",     sub: "Hands-on" },
+    { slug: "building-ai-agents",  title: "Building AI Agents",      sub: "Advanced" },
+    { slug: "ai-for-business",     title: "AI for Business Leaders", sub: "Strategy" },
+  ],
+  links: { instagram: "", linkedin: "" },  // TODO: paste real URLs (or edit in-app on the Social page)
+};
+
+const ACCENTS = ["edge", "consulting", "marketplace", "bespoke"];
+const RETENTION_OPTIONS = [1, 3, 4, 6, 12, 24, 36];
+
+/* =========================================================================
+   SVG ICONS (no emoji)
+   ========================================================================= */
+const I = {
+  chevron:  '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>',
+  back:     '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>',
+  open:     '<svg class="icon open-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 5h5v5"/><line x1="19" y1="5" x2="10" y2="14"/><path d="M19 13v5a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg>',
+  cap:      '<svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3 1 8l11 5 9-4.09V14h2V8L12 3zM5 13.18v3.5C5 18.5 8.13 20 12 20s7-1.5 7-3.32v-3.5l-7 3.18-7-3.18z"/></svg>',
+  share:    '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.6" y1="10.6" x2="15.4" y2="6.4"/><line x1="8.6" y1="13.4" x2="15.4" y2="17.6"/></svg>',
+  layers:   '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 22 8.5 12 15 2 8.5 12 2"/><polyline points="2 15.5 12 22 22 15.5"/></svg>',
+  community:'<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+  instagram:'<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.3" fill="currentColor" stroke="none"/></svg>',
+  linkedin: '<svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0 8h5v16H0V8zm7.5 0H12v2.2h.07c.63-1.2 2.17-2.46 4.46-2.46C21.4 7.74 24 10 24 14.6V24h-5v-8.3c0-1.98-.04-4.52-2.76-4.52-2.76 0-3.18 2.15-3.18 4.38V24h-5V8z"/></svg>',
+  pencil:   '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z"/></svg>',
+  download: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>',
+  upload:   '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>',
+  dot:      '<svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="5"/></svg>',
+};
+const leafIcons = { "Courses": I.cap, "Skool": I.community, "Social Media": I.share };
+
+/* =========================================================================
+   STATE + PERSISTENCE
+   ========================================================================= */
+let DATA = null;
+let editing = false;
+let orgObserver = null;
+let saveTimer = null;
+
+const app = document.getElementById("app");
+const crumb = document.getElementById("crumb");
+const toastEl = document.getElementById("toast");
+
+const esc = (s) => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const accentVars = (a) => `--accent: var(--${a}); --accent-ink: var(--${a}-ink);`;
+const cssVar = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const clone = (o) => JSON.parse(JSON.stringify(o));
+const now = () => Date.now();
+const genId = (p) => p + "-" + Math.random().toString(36).slice(2, 7);
+const slugify = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || genId("item");
+
+function touch(rec) { if (rec) rec.lastEdited = now(); }
+
+/* stamp lastEdited on every editable record that lacks one */
+function seedTimestamps(d, ts) {
+  ts = ts || now();
+  const stamp = (r) => { if (r && r.lastEdited == null) r.lastEdited = ts; };
+  stamp(d.head);
+  (d.people || []).forEach(stamp);
+  (d.projects || []).forEach(p => { stamp(p); (p.leaves || []).forEach(stamp); });
+  Object.values(d.pages || {}).forEach(stamp);
+  (d.courses || []).forEach(stamp);
+}
+
+function load() {
+  let raw = null;
+  try { raw = localStorage.getItem(STORAGE_KEY); } catch (e) { /* storage blocked */ }
+  if (raw) {
+    try { DATA = JSON.parse(raw); } catch (e) { DATA = clone(DEFAULT_DATA); }
+  } else {
+    DATA = clone(DEFAULT_DATA);
+  }
+  if (!DATA.settings) DATA.settings = clone(DEFAULT_DATA.settings);
+  if (!DATA.links) DATA.links = clone(DEFAULT_DATA.links);
+  if (!DATA.pages) DATA.pages = {};
+  seedTimestamps(DATA);
+  // run auto-cleanup on load if enabled
+  runCleanup(false);
+}
+
+function save() {
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => {
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(DATA)); }
+    catch (e) { toast("Could not save to this browser (storage blocked). Use Export instead."); }
+  }, 200);
+}
+
+function toast(msg, ms) {
+  toastEl.textContent = msg;
+  toastEl.classList.add("show");
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => toastEl.classList.remove("show"), ms || 3200);
+}
+
+/* =========================================================================
+   AUTO-CLEANUP — delete items not edited within the retention window
+   ========================================================================= */
+function cutoffTime(months) {
+  const d = new Date();
+  d.setMonth(d.getMonth() - months);
+  return d.getTime();
+}
+
+function runCleanup(manual) {
+  const s = DATA.settings;
+  if (!s.autoCleanup) {
+    if (manual) toast("Auto-cleanup is disabled — enable it first.");
+    return;
+  }
+  const cutoff = cutoffTime(s.retentionMonths);
+  const stale = (r) => r && r.lastEdited != null && r.lastEdited < cutoff;
+  const removed = [];
+
+  // people
+  const keptPeople = [];
+  (DATA.people || []).forEach(p => { if (stale(p)) removed.push("Person: " + p.name); else keptPeople.push(p); });
+  DATA.people = keptPeople;
+  const peopleIds = new Set(DATA.people.map(p => p.id));
+
+  // projects (and their leaves); drop dangling owner refs
+  const keptProjects = [];
+  (DATA.projects || []).forEach(pr => {
+    if (stale(pr)) { removed.push("Project: " + pr.name); return; }
+    pr.team = (pr.team || []).filter(id => peopleIds.has(id));
+    const keptLeaves = [];
+    (pr.leaves || []).forEach(lf => { if (stale(lf)) removed.push("Item: " + pr.name + " › " + lf.lbl); else keptLeaves.push(lf); });
+    pr.leaves = keptLeaves;
+    keptProjects.push(pr);
+  });
+  DATA.projects = keptProjects;
+
+  // courses
+  const keptCourses = [];
+  (DATA.courses || []).forEach(c => { if (stale(c)) removed.push("Course: " + c.title); else keptCourses.push(c); });
+  DATA.courses = keptCourses;
+
+  // detail pages
+  Object.keys(DATA.pages || {}).forEach(k => { if (stale(DATA.pages[k])) { removed.push("Page: " + DATA.pages[k].title); delete DATA.pages[k]; } });
+
+  if (removed.length) {
+    save();
+    const summary = removed.length + " item(s) removed (not edited in " + s.retentionMonths + " month" + (s.retentionMonths > 1 ? "s" : "") + ")";
+    DATA._lastCleanup = { when: now(), summary, removed };
+    if (manual) toast(summary);
+  } else if (manual) {
+    DATA._lastCleanup = { when: now(), summary: "Nothing to remove — all items edited within the window.", removed: [] };
+    toast("Nothing to remove — everything is within the window.");
+  }
+}
+
+/* =========================================================================
+   FINDERS
+   ========================================================================= */
+const findPerson  = (id) => (DATA.people || []).find(p => p.id === id);
+const findProject = (id) => (DATA.projects || []).find(p => p.id === id);
+const findLeaf    = (pid, lid) => { const pr = findProject(pid); return pr && (pr.leaves || []).find(l => l.id === lid); };
+const findCourse  = (slug) => (DATA.courses || []).find(c => c.slug === slug);
+
+/* =========================================================================
+   VIEWS — HOME
+   ========================================================================= */
+function renderHome() {
+  crumb.textContent = "AI Team Map · Connected";
+
+  const people = DATA.people.map(p => editing
+    ? `<div class="card person-node" data-rec="person" data-id="${p.id}">
+         <button class="del-btn" data-del="person.${p.id}" title="Delete">&times;</button>
+         <label class="edit-field"><span class="lab">Name</span>
+           <input class="edit-input" data-bind="person.${p.id}.name" value="${esc(p.name)}"></label>
+         <label class="edit-field"><span class="lab">Tooltip</span>
+           <input class="edit-input" data-bind="person.${p.id}.tip" value="${esc(p.tip)}"></label>
+       </div>`
+    : `<div class="card person-node" id="n-${p.id}" tabindex="0" data-tip="${esc(p.tip)}">
+         <div class="title">${esc(p.name)}</div><div class="sub">Direct report</div>
+       </div>`).join("");
+
+  const addPerson = editing ? `<button class="add-card" data-add="person">+ Add person</button>` : "";
+
+  const projects = DATA.projects.map((pr, i) => {
+    const leaves = pr.leaves.map(l => editing ? editLeaf(pr, l) : viewLeaf(pr, l)).join("");
+    const addLeaf = editing ? `<button class="add-leaf" data-add="leaf.${pr.id}">+ Add item</button>` : "";
+    const ownersText = pr.team.map(id => { const pp = findPerson(id); return pp ? pp.name : null; }).filter(Boolean).join(" · ") || "—";
+
+    const headerInner = editing
+      ? `<div style="flex:1">
+           <button class="del-btn" data-del="project.${pr.id}" title="Delete project" style="float:right">&times;</button>
+           <label class="edit-field"><span class="lab">Project name</span>
+             <input class="edit-input" data-bind="project.${pr.id}.name" value="${esc(pr.name)}"></label>
+           <label class="edit-field"><span class="lab">Colour</span>
+             <select class="edit-input" data-change="project.${pr.id}.accent">
+               ${ACCENTS.map(a => `<option value="${a}" ${a === pr.accent ? "selected" : ""}>${a}</option>`).join("")}
+             </select></label>
+           <label class="edit-field"><span class="lab">Tooltip</span>
+             <input class="edit-input" data-bind="project.${pr.id}.tip" value="${esc(pr.tip)}"></label>
+           <div class="edit-field"><span class="lab">Owners (drives connector lines)</span>
+             <div class="team-pick">${DATA.people.map(pp =>
+               `<label><input type="checkbox" data-team="${pr.id}" value="${pp.id}" ${pr.team.includes(pp.id) ? "checked" : ""}> ${esc(pp.name)}</label>`).join("")}</div>
+           </div>
+         </div>`
+      : `<span><span class="p-title">${esc(pr.name)}</span><span class="owners" style="display:block">${esc(ownersText)}</span></span>
+         <span class="chevron">${I.chevron}</span>`;
+
+    return `
+      <div class="project" style="${accentVars(pr.accent)}">
+        <button class="project-header" id="h-${pr.id}" aria-expanded="${editing ? "true" : "false"}" data-tip="${esc(pr.tip)}">${headerInner}</button>
+        <div class="leaves" id="leaves-${i}">${leaves}${addLeaf}</div>
+      </div>`;
+  }).join("");
+
+  const addProject = editing ? `<div class="add-card" data-add="project" style="width:auto">+ Add project</div>` : "";
+
+  const head = editing
+    ? `<div class="card head-node" data-rec="head">
+         <label class="edit-field"><span class="lab">Name</span>
+           <input class="edit-input" data-bind="head.name" value="${esc(DATA.head.name)}"></label>
+         <label class="edit-field"><span class="lab">Role</span>
+           <input class="edit-input" data-bind="head.role" value="${esc(DATA.head.role)}"></label>
+         <label class="edit-field"><span class="lab">Tooltip</span>
+           <input class="edit-input" data-bind="head.tip" value="${esc(DATA.head.tip)}"></label>
+       </div>`
+    : `<div class="card head-node" id="n-head" tabindex="0" data-tip="${esc(DATA.head.tip)}">
+         <div class="title">${esc(DATA.head.name)}</div><div class="sub">${esc(DATA.head.role)}</div>
+       </div>`;
+
+  app.innerHTML = `
+    <div class="hero">
+      <h1>MyRepublic · AI Team</h1>
+      <p>Connected org &amp; ownership map — lines link each person to the projects they own</p>
+    </div>
+    <div class="legend">
+      <span><i class="swatch" style="background:var(--edge)"></i> Edge Academy</span>
+      <span><i class="swatch" style="background:var(--consulting)"></i> Consulting</span>
+      <span><i class="swatch" style="background:var(--marketplace)"></i> Marketplace</span>
+      <span><i class="swatch" style="background:var(--bespoke)"></i> Bespoke</span>
+      <span><i class="wirekey"></i> Reporting line</span>
+    </div>
+
+    <div class="org" id="org">
+      <svg class="wires" id="wires" aria-hidden="true"></svg>
+      <div class="row-head">${head}</div>
+      <div class="row-people">${people}${addPerson}</div>
+      <div class="section-label">Projects</div>
+      <div class="row-projects">${projects}${addProject}</div>
+    </div>
+
+    ${editing ? maintenancePanel() : `
+      <div class="hint">Tip: click or press Enter on a project to expand. Internal nodes open in this tab; Skool / social open in a new tab.</div>
+      <div class="footnote">Built to the UI/UX Pro Max checklist — SVG icons, AA contrast, keyboard focus, 44px targets, reduced-motion safe.</div>`}
+  `;
+
+  // connectors only meaningful in view mode (ids exist there)
+  if (!editing) {
+    drawWires();
+    setTimeout(drawWires, 150);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(drawWires);
+    if (orgObserver) orgObserver.disconnect();
+    if (window.ResizeObserver) {
+      orgObserver = new ResizeObserver(() => drawWires());
+      orgObserver.observe(document.getElementById("org"));
+    }
+  } else if (orgObserver) {
+    orgObserver.disconnect(); orgObserver = null;
+  }
+}
+
+function viewLeaf(pr, l) {
+  const navigable = l.nav && l.nav !== "none";
+  const ico = leafIcons[l.lbl] || I.dot;
+  const openIco = navigable ? I.open : "";
+  const attrs = navigable ? ` role="button" tabindex="0"` : "";
+  return `<div class="leaf" data-nav="${l.nav || "none"}" data-leaf="${pr.id}.${l.id}"${attrs} data-tip="${esc(l.tip)}">
+            <span class="l-ico">${ico}</span><span class="lbl">${esc(l.lbl)}</span>${openIco}
+          </div>`;
+}
+
+function editLeaf(pr, l) {
+  const hint = l.nav === "view" ? "courses or social"
+    : l.nav === "page" ? "page id (e.g. free-tier)"
+    : l.nav === "ext"  ? "https://…"
+    : "(not used)";
+  return `<div class="leaf" style="flex-direction:column;align-items:stretch">
+    <div style="display:flex;align-items:center;gap:8px"><span class="lbl">${esc(l.lbl) || "Item"}</span>
+      <button class="del-btn" data-del="leaf.${pr.id}.${l.id}" title="Delete item">&times;</button></div>
+    <label class="edit-field"><span class="lab">Label</span>
+      <input class="edit-input" data-bind="leaf.${pr.id}.${l.id}.lbl" value="${esc(l.lbl)}"></label>
+    <label class="edit-field"><span class="lab">Click action</span>
+      <select class="edit-input" data-change="leaf.${pr.id}.${l.id}.nav">
+        ${["none","view","page","ext"].map(n => `<option value="${n}" ${n === l.nav ? "selected" : ""}>${
+          {none:"No link", view:"Open built-in view", page:"Open detail page", ext:"Open external URL (new tab)"}[n]
+        }</option>`).join("")}
+      </select></label>
+    ${l.nav && l.nav !== "none" ? `<label class="edit-field"><span class="lab">Target — ${hint}</span>
+      <input class="edit-input" data-bind="leaf.${pr.id}.${l.id}.target" value="${esc(l.target)}" placeholder="${esc(hint)}"></label>` : ""}
+    <label class="edit-field"><span class="lab">Tooltip</span>
+      <input class="edit-input" data-bind="leaf.${pr.id}.${l.id}.tip" value="${esc(l.tip)}"></label>
+  </div>`;
+}
+
+function maintenancePanel() {
+  const s = DATA.settings;
+  const last = DATA._lastCleanup;
+  return `
+    <div class="maint">
+      <h3>Maintenance · auto-cleanup</h3>
+      <p class="note">When enabled, items (people, projects, items, courses, pages) that haven't been edited within the chosen window are deleted — on load and when you press “Run now”. Editing any field resets that item's timer. The Head of AI node is never auto-deleted. <strong>This is destructive; Export a backup first.</strong></p>
+      <div class="ctl">
+        <label class="switch"><input type="checkbox" id="cleanupToggle" ${s.autoCleanup ? "checked" : ""}> Enable auto-cleanup</label>
+        <label class="switch" style="font-weight:500">Delete items not edited in the last
+          <select id="retentionSelect">
+            ${RETENTION_OPTIONS.map(m => `<option value="${m}" ${m === s.retentionMonths ? "selected" : ""}>${m} month${m > 1 ? "s" : ""}</option>`).join("")}
+          </select>
+        </label>
+        <button class="btn ghost" id="cleanupNow">Run now</button>
+      </div>
+      ${last ? `<div class="cleanup-report"><strong>Last cleanup:</strong> ${esc(last.summary)}${
+        last.removed && last.removed.length ? "<br>" + last.removed.map(esc).join("<br>") : ""}</div>` : ""}
+    </div>`;
+}
+
+/* =========================================================================
+   VIEWS — SUB PAGES
+   ========================================================================= */
+function pageShell(inner) {
+  return `<button class="back" data-back>${I.back}<span>Back to team map</span></button>${inner}`;
+}
+
+function renderCourses() {
+  crumb.textContent = "Edge Academy · Courses";
+  const tiles = DATA.courses.map(c => editing
+    ? `<div class="tile" style="cursor:default">
+         <button class="del-btn" data-del="course.${c.slug}" title="Delete course">&times;</button>
+         <span class="t-icon" style="background:var(--edge)">${I.cap}</span>
+         <label class="edit-field"><span class="lab">Title</span>
+           <input class="edit-input" data-bind="course.${c.slug}.title" value="${esc(c.title)}"></label>
+         <label class="edit-field"><span class="lab">Subtitle</span>
+           <input class="edit-input" data-bind="course.${c.slug}.sub" value="${esc(c.sub)}"></label>
+       </div>`
+    : `<div class="tile" data-course="${c.slug}" role="button" tabindex="0">
+         <span class="t-icon" style="background:var(--edge)">${I.cap}</span>
+         <span class="t-title">${esc(c.title)} ${I.open}</span>
+         <span class="t-sub">${esc(c.sub)}</span>
+       </div>`).join("");
+  const addC = editing ? `<button class="add-card" data-add="course" style="width:auto">+ Add course</button>` : "";
+  app.innerHTML = pageShell(`
+    <div class="page-card" style="${accentVars('edge')}">
+      <span class="badge">${I.cap} Edge Academy</span><h2>Courses</h2>
+      <p class="lead">Browse the Edge Academy catalogue. Each course opens on its own page.</p>
+      <div class="grid-list">${tiles}${addC}</div>
+    </div>`);
+}
+
+function renderCourse(slug) {
+  const c = findCourse(slug);
+  const title = c ? c.title : "Course";
+  crumb.textContent = "Edge Academy · " + title;
+  app.innerHTML = pageShell(`
+    <div class="page-card" style="${accentVars('edge')}">
+      <span class="badge">${I.cap} Edge Academy · Course</span><h2>${esc(title)}</h2>
+      <p class="lead">${c ? esc(c.sub) : "This course no longer exists."}</p>
+      <div class="soon">This is the dedicated page for <strong>${esc(title)}</strong>. Drop the syllabus, lessons or enrolment link here.</div>
+    </div>`);
+}
+
+function renderSocial() {
+  crumb.textContent = "Edge Academy · Social Media";
+  const ig = DATA.links.instagram, li = DATA.links.linkedin;
+  const tiles = editing
+    ? `<div class="tile" style="cursor:default">
+         <span class="t-icon" style="background:#e1306c">${I.instagram}</span>
+         <span class="t-title">Instagram</span>
+         <label class="edit-field"><span class="lab">URL</span>
+           <input class="edit-input" data-bind="link.instagram" value="${esc(ig)}" placeholder="https://instagram.com/…"></label>
+       </div>
+       <div class="tile" style="cursor:default">
+         <span class="t-icon" style="background:#0a66c2">${I.linkedin}</span>
+         <span class="t-title">LinkedIn</span>
+         <label class="edit-field"><span class="lab">URL</span>
+           <input class="edit-input" data-bind="link.linkedin" value="${esc(li)}" placeholder="https://linkedin.com/…"></label>
+       </div>`
+    : `<a class="tile" href="${esc(ig || "#")}" ${ig ? `target="_blank" rel="noopener"` : ""} aria-label="Instagram">
+         <span class="t-icon" style="background:#e1306c">${I.instagram}</span>
+         <span class="t-title">Instagram ${I.open}</span>
+         <span class="t-sub">${ig ? esc(ig) : "No URL yet — add it in Edit mode"}</span>
+       </a>
+       <a class="tile" href="${esc(li || "#")}" ${li ? `target="_blank" rel="noopener"` : ""} aria-label="LinkedIn">
+         <span class="t-icon" style="background:#0a66c2">${I.linkedin}</span>
+         <span class="t-title">LinkedIn ${I.open}</span>
+         <span class="t-sub">${li ? esc(li) : "No URL yet — add it in Edit mode"}</span>
+       </a>`;
+  app.innerHTML = pageShell(`
+    <div class="page-card" style="${accentVars('edge')}">
+      <span class="badge">${I.share} Edge Academy</span><h2>Social Media</h2>
+      <p class="lead">Follow Edge Academy across our channels.</p>
+      <div class="grid-list">${tiles}</div>
+    </div>`);
+}
+
+function renderDetail(slug) {
+  const d = DATA.pages[slug];
+  if (!d) { location.hash = ""; return; }
+  crumb.textContent = d.project + " · " + d.title;
+  const body = editing
+    ? `<label class="edit-field"><span class="lab">Title</span>
+         <input class="edit-input" data-bind="page.${slug}.title" value="${esc(d.title)}"></label>
+       <label class="edit-field"><span class="lab">Description</span>
+         <textarea class="edit-input" data-bind="page.${slug}.desc">${esc(d.desc)}</textarea></label>`
+    : `<h2>${esc(d.title)}</h2>
+       <p class="lead">${esc(d.desc)}</p>
+       <div class="soon">This is the dedicated <strong>${esc(d.title)}</strong> page. Add its details, pricing or sign-up flow here.</div>`;
+  app.innerHTML = pageShell(`
+    <div class="page-card" style="${accentVars(d.accent || 'edge')}">
+      <span class="badge">${I.layers} ${esc(d.project || "")}</span>
+      ${body}
+    </div>`);
+}
+
+/* =========================================================================
+   CONNECTOR DRAWING
+   ========================================================================= */
+function drawWires() {
+  const org = document.getElementById("org");
+  const svg = document.getElementById("wires");
+  if (!org || !svg || editing) return;
+  const o = org.getBoundingClientRect();
+  svg.setAttribute("width", Math.round(o.width));
+  svg.setAttribute("height", Math.round(org.scrollHeight));
+
+  const box = (id) => {
+    const el = document.getElementById(id);
+    if (!el) return null;
+    const r = el.getBoundingClientRect();
+    return { cx: r.left - o.left + r.width / 2, top: r.top - o.top, bottom: r.bottom - o.top };
+  };
+  const curve = (a, b, color, w, op) => {
+    if (!a || !b) return "";
+    const sx = a.cx, sy = a.bottom, tx = b.cx, ty = b.top;
+    const dy = Math.max(28, (ty - sy) * 0.5);
+    return `<path d="M ${sx} ${sy} C ${sx} ${sy + dy} ${tx} ${ty - dy} ${tx} ${ty}" fill="none" stroke="${color}" stroke-width="${w}" stroke-linecap="round" opacity="${op}"/>`
+         + `<circle cx="${sx}" cy="${sy}" r="3" fill="${color}"/><circle cx="${tx}" cy="${ty}" r="3" fill="${color}"/>`;
+  };
+
+  let paths = "";
+  const head = box("n-head");
+  DATA.people.forEach(p => { paths += curve(head, box("n-" + p.id), cssVar("--wire"), 2, 0.75); });
+  DATA.projects.forEach(pr => {
+    const color = cssVar("--" + pr.accent) || cssVar("--edge");
+    (pr.team || []).forEach(pid => { paths += curve(box("n-" + pid), box("h-" + pr.id), color, 2.5, 0.85); });
+  });
+  svg.innerHTML = paths;
+}
+
+/* =========================================================================
+   ROUTER  (internal routes stay in THIS tab — no localhost re-fetch)
+   ========================================================================= */
+function route() {
+  if (orgObserver) { orgObserver.disconnect(); orgObserver = null; }
+  const h = location.hash.replace(/^#\/?/, "");
+  if (!h)                           renderHome();
+  else if (h === "courses")         renderCourses();
+  else if (h === "social")          renderSocial();
+  else if (h.startsWith("page/"))   renderDetail(h.slice(5));
+  else if (h.startsWith("course/")) renderCourse(h.slice(7));
+  else                              renderHome();
+  window.scrollTo(0, 0);
+}
+const reRender = () => route();
+
+/* =========================================================================
+   NAVIGATION (view mode)
+   ========================================================================= */
+function navigate(leaf) {
+  switch (leaf.nav) {
+    case "view": location.hash = "#/" + (leaf.target || "");           break; // same tab
+    case "page": location.hash = "#/page/" + (leaf.target || "");      break; // same tab
+    case "ext":
+      if (leaf.target && leaf.target !== "#") window.open(leaf.target, "_blank", "noopener");
+      else toast("No URL set for this link yet.");
+      break;
+    default: /* none */ break;
+  }
+}
+
+/* =========================================================================
+   EDIT-MODE WIRING
+   ========================================================================= */
+function setField(path, value) {
+  const p = path.split(".");
+  switch (p[0]) {
+    case "head":    DATA.head[p[1]] = value; touch(DATA.head); break;
+    case "person":  { const r = findPerson(p[1]); if (r) { r[p[2]] = value; touch(r); } break; }
+    case "project": { const r = findProject(p[1]); if (r) { r[p[2]] = value; touch(r); } break; }
+    case "leaf":    { const r = findLeaf(p[1], p[2]); if (r) { r[p[3]] = value; touch(r); } break; }
+    case "course":  { const r = findCourse(p[1]); if (r) { r[p[2]] = value; touch(r); } break; }
+    case "page":    { const r = DATA.pages[p[1]]; if (r) { r[p[2]] = value; touch(r); } break; }
+    case "link":    DATA.links[p[1]] = value; break;
+  }
+  save();
+}
+
+function addRecord(spec) {
+  const p = spec.split(".");
+  if (p[0] === "person") {
+    DATA.people.push({ id: genId("p"), name: "New person", tip: "", lastEdited: now() });
+  } else if (p[0] === "project") {
+    DATA.projects.push({ id: genId("proj"), name: "New project", accent: ACCENTS[DATA.projects.length % ACCENTS.length], team: [], tip: "", leaves: [], lastEdited: now() });
+  } else if (p[0] === "leaf") {
+    const pr = findProject(p[1]);
+    if (pr) pr.leaves.push({ id: genId("l"), lbl: "New item", nav: "none", target: "", tip: "", lastEdited: now() });
+  } else if (p[0] === "course") {
+    DATA.courses.push({ slug: genId("course"), title: "New course", sub: "", lastEdited: now() });
+  }
+  save(); reRender();
+}
+
+function delRecord(spec) {
+  const p = spec.split(".");
+  if (p[0] === "person")  DATA.people = DATA.people.filter(x => x.id !== p[1]);
+  else if (p[0] === "project") DATA.projects = DATA.projects.filter(x => x.id !== p[1]);
+  else if (p[0] === "leaf") { const pr = findProject(p[1]); if (pr) pr.leaves = pr.leaves.filter(x => x.id !== p[2]); }
+  else if (p[0] === "course") DATA.courses = DATA.courses.filter(x => x.slug !== p[1]);
+  save(); reRender();
+}
+
+function onChangeSelectOrCheck(el) {
+  // accent / nav selects
+  const ch = el.getAttribute("data-change");
+  if (ch) {
+    const p = ch.split(".");
+    if (p[0] === "project") { const r = findProject(p[1]); if (r) { r[p[2]] = el.value; touch(r); } }
+    else if (p[0] === "leaf") { const r = findLeaf(p[1], p[2]); if (r) { r[p[3]] = el.value; touch(r); if (r.nav === "page" && r.target && !DATA.pages[r.target]) { DATA.pages[r.target] = { title: r.lbl, project: "", accent: "edge", desc: "", lastEdited: now() }; } } }
+    save(); reRender(); return;
+  }
+  // owner checkboxes
+  const team = el.getAttribute("data-team");
+  if (team) {
+    const pr = findProject(team);
+    if (pr) {
+      const id = el.value;
+      if (el.checked) { if (!pr.team.includes(id)) pr.team.push(id); }
+      else pr.team = pr.team.filter(x => x !== id);
+      touch(pr); save(); reRender();
+    }
+  }
+}
+
+/* ---- editor toolbar actions ---- */
+function setEditing(on) {
+  editing = on;
+  document.body.classList.toggle("editing", on);
+  document.getElementById("editToggle").innerHTML = on ? "Done" : (I.pencil + "Edit");
+  reRender();
+}
+
+function exportJSON() {
+  const out = clone(DATA); delete out._lastCleanup;
+  const blob = new Blob([JSON.stringify(out, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url; a.download = "flowchart-data.json";
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  toast("Exported flowchart-data.json — share this file to share your edits.");
+}
+
+function importJSON(file) {
+  const reader = new FileReader();
+  reader.onload = () => {
+    try {
+      const parsed = JSON.parse(reader.result);
+      if (!parsed.people || !parsed.projects) throw new Error("Not a flowchart data file");
+      DATA = parsed;
+      if (!DATA.settings) DATA.settings = clone(DEFAULT_DATA.settings);
+      if (!DATA.links) DATA.links = clone(DEFAULT_DATA.links);
+      if (!DATA.pages) DATA.pages = {};
+      seedTimestamps(DATA);
+      save(); location.hash = ""; reRender();
+      toast("Imported successfully.");
+    } catch (e) { toast("Import failed: " + e.message); }
+  };
+  reader.readAsText(file);
+}
+
+function resetAll() {
+  if (!confirm("Reset all content back to the original defaults? Your edits in this browser will be lost.")) return;
+  DATA = clone(DEFAULT_DATA); seedTimestamps(DATA); save(); location.hash = ""; reRender();
+  toast("Reset to defaults.");
+}
+
+/* =========================================================================
+   GLOBAL EVENT WIRING
+   ========================================================================= */
+document.getElementById("editToggle").addEventListener("click", () => setEditing(!editing));
+document.getElementById("exportBtn").addEventListener("click", exportJSON);
+document.getElementById("resetBtn").addEventListener("click", resetAll);
+document.getElementById("importInput").addEventListener("change", (e) => { if (e.target.files[0]) importJSON(e.target.files[0]); e.target.value = ""; });
+document.getElementById("homeLogo").addEventListener("click", () => { location.hash = ""; });
+
+/* text inputs / textareas — update model only (no re-render → keeps focus) */
+app.addEventListener("input", (e) => {
+  const bind = e.target.getAttribute && e.target.getAttribute("data-bind");
+  if (bind) setField(bind, e.target.value);
+});
+
+/* selects + checkboxes */
+app.addEventListener("change", (e) => {
+  if (e.target.matches("[data-change], [data-team]")) onChangeSelectOrCheck(e.target);
+  if (e.target.id === "cleanupToggle") {
+    if (e.target.checked && !confirm("Enable auto-cleanup? Items not edited within the selected window will be permanently deleted (on load and when you run it). Export a backup first.")) {
+      e.target.checked = false; return;
+    }
+    DATA.settings.autoCleanup = e.target.checked; save();
+    if (e.target.checked) runCleanup(true);
+    reRender();
+  }
+  if (e.target.id === "retentionSelect") { DATA.settings.retentionMonths = parseInt(e.target.value, 10); save(); }
+});
+
+/* clicks: navigation, expand, add/delete, back, cleanup-now */
+app.addEventListener("click", (e) => {
+  const t = e.target;
+  if (t.closest("[data-back]")) { location.hash = ""; return; }
+  if (t.id === "cleanupNow") { runCleanup(true); reRender(); return; }
+
+  const del = t.closest("[data-del]"); if (del) { delRecord(del.getAttribute("data-del")); return; }
+  const add = t.closest("[data-add]"); if (add) { addRecord(add.getAttribute("data-add")); return; }
+
+  if (editing) return; // no navigation while editing
+
+  const course = t.closest("[data-course]");
+  if (course) { location.hash = "#/course/" + course.getAttribute("data-course"); return; }
+
+  const leafEl = t.closest(".leaf[data-leaf]");
+  if (leafEl && leafEl.getAttribute("data-nav") !== "none") {
+    const parts = leafEl.getAttribute("data-leaf").split(".");
+    const lf = findLeaf(parts[0], parts[1]); if (lf) navigate(lf);
+    return;
+  }
+  const header = t.closest(".project-header");
+  if (header) {
+    const open = header.closest(".project").classList.toggle("open");
+    header.setAttribute("aria-expanded", open ? "true" : "false");
+    drawWires(); setTimeout(drawWires, 320);
+  }
+});
+
+/* keyboard activation for nodes (a11y) */
+app.addEventListener("keydown", (e) => {
+  if (e.key !== "Enter" && e.key !== " " && e.key !== "Spacebar") return;
+  if (editing) return;
+  const el = e.target;
+  if (el.matches(".leaf[data-leaf], .project-header, [data-course]")) {
+    e.preventDefault(); el.click();
+  }
+});
+
+let resizeT = null;
+window.addEventListener("resize", () => { clearTimeout(resizeT); resizeT = setTimeout(drawWires, 80); });
+window.addEventListener("hashchange", route);
+
+/* ---- boot ---- */
+load();
+document.getElementById("editToggle").innerHTML = I.pencil + "Edit";
+route();
+</script>
 </body>
 </html>
