@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Edge Academy · MyRepublic AI Team</title>
+<link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="topbar">
+    <button class="logo" id="homeLogo" title="Back to team map" aria-label="Edge Academy — back to team map">
+      <svg class="mark" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#16b8c4"/><stop offset="1" stop-color="#2f7fe8"/></linearGradient></defs>
+        <path d="M24 3 L45 45 L31 45 L24 30 L17 45 L3 45 Z" fill="url(#lg)"/>
+        <path d="M24 16 L33 34 L24 34 Z" fill="#ffffff" opacity=".55"/>
+      </svg>
+      <span class="word"><b>EDGE</b><span>ACADEMY</span></span>
+    </button>
+    <div class="spacer"></div>
+    <div class="crumb" id="crumb">AI Team Map</div>
+    <div class="toolbar">
+      <button class="btn" id="editToggle" type="button">Edit</button>
+      <button class="btn ghost edit-only" id="exportBtn" type="button" title="Download your edits as JSON to share">Export</button>
+      <label class="btn ghost edit-only" title="Load a shared JSON file">Import
+        <input type="file" id="importInput" accept="application/json,.json" hidden />
+      </label>
+      <button class="btn danger edit-only" id="resetBtn" type="button" title="Restore original content">Reset</button>
+    </div>
+  </div>
+
+  <div class="editmode-banner">Edit mode — changes autosave to this browser. Use <strong>Export</strong> to share them with others.</div>
+
+  <div class="wrap" id="app"><!-- rendered by app.js --></div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
