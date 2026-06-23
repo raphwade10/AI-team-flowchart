@@ -125,21 +125,25 @@ body.editing .person-node { width: 200px; text-align: left; }
 body.editing .head-node { width: 300px; text-align: left; }
 
 /* ---------- projects ---------- */
-.project { background: var(--card); border: 1px solid var(--line); border-top: 4px solid var(--accent); border-radius: 16px; overflow: hidden; box-shadow: 0 6px 18px rgba(31,52,90,.06); }
+.project { background: var(--card); border: 1px solid var(--line); border-top: 4px solid var(--accent); border-radius: 16px; overflow: hidden; box-shadow: 0 6px 18px rgba(31,52,90,.06); transition: box-shadow .18s ease; }
+.project:hover { box-shadow: 0 12px 26px rgba(20,30,50,.14); }
 .project-header {
   width: 100%; min-height: 44px; padding: 15px 16px; cursor: pointer; user-select: none; text-align: left;
   background: var(--card); border: none;
   display: flex; align-items: center; justify-content: space-between; gap: 10px; transition: background .18s ease;
 }
 .project-header:hover { background: rgba(47,127,232,.05); }
+.project-header.project-edit { cursor: default; align-items: flex-start; }
+.project-header.project-edit:hover { background: var(--card); }
 .p-title { font-weight: 800; font-size: 1.18rem; color: var(--accent-ink); }
 .owners { font-size: .76rem; color: var(--ink-soft); margin-top: 3px; }
 .chevron { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; color: var(--accent-ink); background: color-mix(in srgb, var(--accent) 14%, white); transition: transform .25s ease; font-size: 14px; }
 .project.open .chevron { transform: rotate(90deg); }
 
-.leaves { max-height: 0; overflow: hidden; transition: max-height .3s ease; padding: 0 14px; }
-.project.open .leaves { max-height: 1200px; padding-bottom: 14px; }
-body.editing .leaves { max-height: none; padding-bottom: 14px; } /* always open while editing */
+.leaves { max-height: 0; overflow: hidden; transition: max-height .25s ease; padding: 0 14px; }
+/* when open, allow overflow so items are never clipped / un-clickable */
+.project.open .leaves { max-height: 2000px; overflow: visible; padding-bottom: 14px; }
+body.editing .leaves { max-height: none; overflow: visible; padding-bottom: 14px; } /* always open while editing */
 
 .leaf {
   position: relative; width: 100%; min-height: 44px; margin-top: 10px; padding: 11px 13px; text-align: left;
@@ -150,12 +154,18 @@ body.editing .leaves { max-height: none; padding-bottom: 14px; } /* always open 
 .leaf .l-ico { width: 18px; height: 18px; color: var(--accent-ink); }
 .leaf .lbl { flex: 1; font-weight: 600; }
 .leaf[data-nav]:not([data-nav="none"]) { cursor: pointer; }
-.leaf[data-nav]:not([data-nav="none"]):hover { background: color-mix(in srgb, var(--accent) 10%, white); transform: translateX(2px); box-shadow: 0 4px 12px rgba(31,52,90,.08); }
+/* keep the soft black drop-shadow underneath each toggle on hover */
+.leaf:hover { transform: translateY(-1px); box-shadow: 0 7px 16px rgba(20,30,50,.20); }
+.leaf[data-nav]:not([data-nav="none"]):hover { background: color-mix(in srgb, var(--accent) 10%, white); }
 .leaf .open-ico { width: 15px; height: 15px; color: var(--ink-soft); }
 
 /* ---------- editable fields ---------- */
 .edit-field { display: block; margin-top: 8px; }
 .edit-field .lab { font-size: .68rem; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-soft); font-weight: 700; }
+.edit-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 2px; }
+.edit-kicker { font-size: .64rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; color: var(--ink-soft); }
+.edit-help { margin: 8px 0 0; font-size: .78rem; color: var(--ink-soft); line-height: 1.45; background: #f4f8ff; border: 1px solid #dce7fb; border-radius: 8px; padding: 9px 11px; }
+.leaf-edit { flex-direction: column; align-items: stretch; }
 .edit-input, select.edit-input, textarea.edit-input {
   width: 100%; font: inherit; font-size: .85rem; padding: 7px 9px; margin-top: 3px;
   border: 1px solid var(--line); border-radius: 8px; background: #fff; color: var(--ink);
@@ -213,19 +223,7 @@ textarea.edit-input { resize: vertical; min-height: 46px; line-height: 1.4; }
 .hint { text-align: center; color: var(--ink-soft); font-size: .78rem; margin-top: 36px; }
 .footnote { text-align: center; color: var(--ink-soft); font-size: .72rem; margin-top: 18px; opacity: .8; }
 
-/* ---------- tooltips ---------- */
-[data-tip]:hover::after, [data-tip]:focus-visible::after {
-  content: attr(data-tip); position: absolute; left: 50%; bottom: calc(100% + 9px); transform: translateX(-50%);
-  background: var(--ink); color: #fff; padding: 8px 11px; border-radius: 8px; font-size: .74rem; font-weight: 500;
-  width: max-content; max-width: 240px; text-align: center; box-shadow: 0 8px 20px rgba(0,0,0,.25); z-index: 50; pointer-events: none;
-}
-[data-tip]:hover::before, [data-tip]:focus-visible::before {
-  content: ""; position: absolute; left: 50%; bottom: calc(100% + 3px); transform: translateX(-50%);
-  border: 6px solid transparent; border-top-color: var(--ink); z-index: 50; pointer-events: none;
-}
-body.editing [data-tip]:hover::after, body.editing [data-tip]:hover::before { display: none; } /* don't fight inputs while editing */
-.leaf[data-tip]:hover::after { bottom: auto; top: calc(100% + 9px); }
-.leaf[data-tip]:hover::before { bottom: auto; top: calc(100% + 3px); border-top-color: transparent; border-bottom-color: var(--ink); }
+/* Hover tooltips removed — the soft drop shadow on hover (above) is the only hover cue. */
 
 /* toast */
 .toast {
@@ -271,7 +269,7 @@ body.editing [data-tip]:hover::after, body.editing [data-tip]:hover::before { di
     </div>
   </div>
 
-  <div class="editmode-banner">Edit mode — changes autosave to this browser. Use <strong>Export</strong> to share them with others.</div>
+  <div class="editmode-banner">You're editing. Click any box to change its text. Use <strong>+ Add</strong> / <strong>&times;</strong> to add or remove. Changes save automatically in this browser — press <strong>Export</strong> to send them to someone else, then <strong>Done</strong> when finished.</div>
 
   <div class="wrap" id="app"><!-- rendered by the script below --></div>
 
@@ -301,9 +299,9 @@ const DEFAULT_DATA = {
   projects: [
     { id: "edge", name: "Edge Academy", accent: "edge", team: ["jeremy","raph"], tip: "Practical, hands-on AI & automation courses.",
       leaves: [
-        { id: "courses", lbl: "Courses",      nav: "view", target: "courses", tip: "Open the full course catalogue" },
-        { id: "skool",   lbl: "Skool",        nav: "ext",  target: "https://www.skool.com/edge-academy-1587", tip: "Join our Skool community" },
-        { id: "social",  lbl: "Social Media", nav: "view", target: "social",  tip: "Instagram & LinkedIn" },
+        { id: "courses",   lbl: "Courses",      nav: "view", target: "courses",   tip: "Open the full course catalogue" },
+        { id: "community", lbl: "Community",    nav: "view", target: "community", tip: "Our communities — Skool & Edge Academy" },
+        { id: "social",    lbl: "Social Media", nav: "view", target: "social",    tip: "Instagram & LinkedIn" },
       ] },
     { id: "consulting", name: "Consulting", accent: "consulting", team: ["jeremy","joel"], tip: "Advisory & implementation engagements.",
       leaves: [
@@ -334,10 +332,17 @@ const DEFAULT_DATA = {
     { slug: "building-ai-agents",  title: "Building AI Agents",      sub: "Advanced" },
     { slug: "ai-for-business",     title: "AI for Business Leaders", sub: "Strategy" },
   ],
-  links: { instagram: "", linkedin: "" },  // TODO: paste real URLs (or edit in-app on the Social page)
+  links: {
+    instagram: "",
+    linkedin: "",
+    skool: "https://www.skool.com/edge-academy-1587",
+    edgeAcademy: "https://www.edgeacademy.ai/en",
+  },
 };
 
 const ACCENTS = ["edge", "consulting", "marketplace", "bespoke"];
+/* Friendly colour names shown in the edit dropdown (the values above are just colour themes) */
+const ACCENT_LABELS = { edge: "Blue", consulting: "Teal", marketplace: "Purple", bespoke: "Pink" };
 const RETENTION_OPTIONS = [1, 3, 4, 6, 12, 24, 36];
 
 /* =========================================================================
@@ -358,7 +363,7 @@ const I = {
   upload:   '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>',
   dot:      '<svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="5"/></svg>',
 };
-const leafIcons = { "Courses": I.cap, "Skool": I.community, "Social Media": I.share };
+const leafIcons = { "Courses": I.cap, "Community": I.community, "Social Media": I.share };
 
 /* =========================================================================
    STATE + PERSISTENCE
@@ -402,7 +407,8 @@ function load() {
     DATA = clone(DEFAULT_DATA);
   }
   if (!DATA.settings) DATA.settings = clone(DEFAULT_DATA.settings);
-  if (!DATA.links) DATA.links = clone(DEFAULT_DATA.links);
+  // fill in any missing link keys (e.g. new skool / edgeAcademy) without losing saved edits
+  DATA.links = Object.assign({}, clone(DEFAULT_DATA.links), DATA.links || {});
   if (!DATA.pages) DATA.pages = {};
   seedTimestamps(DATA);
   // run auto-cleanup on load if enabled
@@ -515,16 +521,17 @@ function renderHome() {
 
     const headerInner = editing
       ? `<div style="flex:1">
-           <button class="del-btn" data-del="project.${pr.id}" title="Delete project" style="float:right">&times;</button>
+           <div class="edit-head"><span class="edit-kicker">Project</span>
+             <button class="del-btn" data-del="project.${pr.id}" title="Delete this project">&times;</button></div>
            <label class="edit-field"><span class="lab">Project name</span>
              <input class="edit-input" data-bind="project.${pr.id}.name" value="${esc(pr.name)}"></label>
-           <label class="edit-field"><span class="lab">Colour</span>
+           <label class="edit-field"><span class="lab">Card colour</span>
              <select class="edit-input" data-change="project.${pr.id}.accent">
-               ${ACCENTS.map(a => `<option value="${a}" ${a === pr.accent ? "selected" : ""}>${a}</option>`).join("")}
+               ${ACCENTS.map(a => `<option value="${a}" ${a === pr.accent ? "selected" : ""}>${ACCENT_LABELS[a] || a}</option>`).join("")}
              </select></label>
-           <label class="edit-field"><span class="lab">Tooltip</span>
+           <label class="edit-field"><span class="lab">Short description (shows on hover)</span>
              <input class="edit-input" data-bind="project.${pr.id}.tip" value="${esc(pr.tip)}"></label>
-           <div class="edit-field"><span class="lab">Owners (drives connector lines)</span>
+           <div class="edit-field"><span class="lab">Who works on this?</span>
              <div class="team-pick">${DATA.people.map(pp =>
                `<label><input type="checkbox" data-team="${pr.id}" value="${pp.id}" ${pr.team.includes(pp.id) ? "checked" : ""}> ${esc(pp.name)}</label>`).join("")}</div>
            </div>
@@ -532,9 +539,14 @@ function renderHome() {
       : `<span><span class="p-title">${esc(pr.name)}</span><span class="owners" style="display:block">${esc(ownersText)}</span></span>
          <span class="chevron">${I.chevron}</span>`;
 
+    // In edit mode the header holds form controls, so it must be a <div>, not a
+    // <button> (a button can't legally contain inputs/selects/buttons — that nests projects).
+    const headerEl = editing
+      ? `<div class="project-header project-edit" id="h-${pr.id}">${headerInner}</div>`
+      : `<button class="project-header" id="h-${pr.id}" aria-expanded="false" data-tip="${esc(pr.tip)}">${headerInner}</button>`;
     return `
       <div class="project" style="${accentVars(pr.accent)}">
-        <button class="project-header" id="h-${pr.id}" aria-expanded="${editing ? "true" : "false"}" data-tip="${esc(pr.tip)}">${headerInner}</button>
+        ${headerEl}
         <div class="leaves" id="leaves-${i}">${leaves}${addLeaf}</div>
       </div>`;
   }).join("");
@@ -576,7 +588,7 @@ function renderHome() {
     </div>
 
     ${editing ? maintenancePanel() : `
-      <div class="hint">Tip: click or press Enter on a project to expand. Internal nodes open in this tab; Skool / social open in a new tab.</div>
+      <div class="hint">Tip: click or press Enter on a project to expand. Built-in pages open in this tab; website links (like Skool & Edge Academy) open in a new tab.</div>
       <div class="footnote">Built to the UI/UX Pro Max checklist — SVG icons, AA contrast, keyboard focus, 44px targets, reduced-motion safe.</div>`}
   `;
 
@@ -606,25 +618,41 @@ function viewLeaf(pr, l) {
 }
 
 function editLeaf(pr, l) {
-  const hint = l.nav === "view" ? "courses or social"
-    : l.nav === "page" ? "page id (e.g. free-tier)"
-    : l.nav === "ext"  ? "https://…"
-    : "(not used)";
-  return `<div class="leaf" style="flex-direction:column;align-items:stretch">
-    <div style="display:flex;align-items:center;gap:8px"><span class="lbl">${esc(l.lbl) || "Item"}</span>
-      <button class="del-btn" data-del="leaf.${pr.id}.${l.id}" title="Delete item">&times;</button></div>
-    <label class="edit-field"><span class="lab">Label</span>
-      <input class="edit-input" data-bind="leaf.${pr.id}.${l.id}.lbl" value="${esc(l.lbl)}"></label>
-    <label class="edit-field"><span class="lab">Click action</span>
-      <select class="edit-input" data-change="leaf.${pr.id}.${l.id}.nav">
-        ${["none","view","page","ext"].map(n => `<option value="${n}" ${n === l.nav ? "selected" : ""}>${
-          {none:"No link", view:"Open built-in view", page:"Open detail page", ext:"Open external URL (new tab)"}[n]
-        }</option>`).join("")}
+  const nav = l.nav || "none";
+  const id = `${pr.id}.${l.id}`;
+  const actions = [
+    ["none", "Do nothing"],
+    ["ext",  "Open a website link"],
+    ["page", "Open an info page"],
+    ["view", "Open a built-in page"],
+  ];
+  const builtins = [["courses", "Courses page"], ["community", "Community page"], ["social", "Social media page"]];
+
+  let extra = "";
+  if (nav === "ext") {
+    extra = `<label class="edit-field"><span class="lab">Website address (link)</span>
+      <input class="edit-input" data-bind="leaf.${id}.target" value="${esc(l.target)}" placeholder="https://example.com"></label>`;
+  } else if (nav === "view") {
+    extra = `<label class="edit-field"><span class="lab">Which built-in page?</span>
+      <select class="edit-input" data-change="leaf.${id}.target">
+        ${builtins.map(([v, t]) => `<option value="${v}" ${v === l.target ? "selected" : ""}>${t}</option>`).join("")}
+      </select></label>`;
+  } else if (nav === "page") {
+    extra = `<p class="edit-help">Opens its own info page. Press <strong>Done</strong>, click this item to open the page, then press <strong>Edit</strong> there to change its text.</p>`;
+  }
+
+  return `<div class="leaf leaf-edit">
+    <div class="edit-head"><span class="edit-kicker">Item</span>
+      <button class="del-btn" data-del="leaf.${id}" title="Delete this item">&times;</button></div>
+    <label class="edit-field"><span class="lab">Name</span>
+      <input class="edit-input" data-bind="leaf.${id}.lbl" value="${esc(l.lbl)}"></label>
+    <label class="edit-field"><span class="lab">When clicked</span>
+      <select class="edit-input" data-change="leaf.${id}.nav">
+        ${actions.map(([v, t]) => `<option value="${v}" ${v === nav ? "selected" : ""}>${t}</option>`).join("")}
       </select></label>
-    ${l.nav && l.nav !== "none" ? `<label class="edit-field"><span class="lab">Target — ${hint}</span>
-      <input class="edit-input" data-bind="leaf.${pr.id}.${l.id}.target" value="${esc(l.target)}" placeholder="${esc(hint)}"></label>` : ""}
-    <label class="edit-field"><span class="lab">Tooltip</span>
-      <input class="edit-input" data-bind="leaf.${pr.id}.${l.id}.tip" value="${esc(l.tip)}"></label>
+    ${extra}
+    <label class="edit-field"><span class="lab">Hover hint (optional)</span>
+      <input class="edit-input" data-bind="leaf.${id}.tip" value="${esc(l.tip)}"></label>
   </div>`;
 }
 
@@ -634,7 +662,7 @@ function maintenancePanel() {
   return `
     <div class="maint">
       <h3>Maintenance · auto-cleanup</h3>
-      <p class="note">When enabled, items (people, projects, items, courses, pages) that haven't been edited within the chosen window are deleted — on load and when you press “Run now”. Editing any field resets that item's timer. The Head of AI node is never auto-deleted. <strong>This is destructive; Export a backup first.</strong></p>
+      <p class="note">When enabled, items (people, projects, items, courses, pages) that haven't been edited within the chosen window are deleted — on load and when you press "Run now". Editing any field resets that item's timer. The Head of AI node is never auto-deleted. <strong>This is destructive; Export a backup first.</strong></p>
       <div class="ctl">
         <label class="switch"><input type="checkbox" id="cleanupToggle" ${s.autoCleanup ? "checked" : ""}> Enable auto-cleanup</label>
         <label class="switch" style="font-weight:500">Delete items not edited in the last
@@ -727,6 +755,40 @@ function renderSocial() {
     </div>`);
 }
 
+function renderCommunity() {
+  crumb.textContent = "Edge Academy · Community";
+  const sk = DATA.links.skool, ea = DATA.links.edgeAcademy;
+  const tiles = editing
+    ? `<div class="tile" style="cursor:default">
+         <span class="t-icon" style="background:#0f7df0">${I.community}</span>
+         <span class="t-title">Skool</span>
+         <label class="edit-field"><span class="lab">Website address (link)</span>
+           <input class="edit-input" data-bind="link.skool" value="${esc(sk)}" placeholder="https://www.skool.com/…"></label>
+       </div>
+       <div class="tile" style="cursor:default">
+         <span class="t-icon" style="background:var(--edge)">${I.cap}</span>
+         <span class="t-title">Edge Academy</span>
+         <label class="edit-field"><span class="lab">Website address (link)</span>
+           <input class="edit-input" data-bind="link.edgeAcademy" value="${esc(ea)}" placeholder="https://www.edgeacademy.ai/…"></label>
+       </div>`
+    : `<a class="tile" href="${esc(sk || "#")}" ${sk ? `target="_blank" rel="noopener"` : ""} aria-label="Skool">
+         <span class="t-icon" style="background:#0f7df0">${I.community}</span>
+         <span class="t-title">Skool ${I.open}</span>
+         <span class="t-sub">${sk ? esc(sk) : "No URL yet — add it in Edit mode"}</span>
+       </a>
+       <a class="tile" href="${esc(ea || "#")}" ${ea ? `target="_blank" rel="noopener"` : ""} aria-label="Edge Academy">
+         <span class="t-icon" style="background:var(--edge)">${I.cap}</span>
+         <span class="t-title">Edge Academy ${I.open}</span>
+         <span class="t-sub">${ea ? esc(ea) : "No URL yet — add it in Edit mode"}</span>
+       </a>`;
+  app.innerHTML = pageShell(`
+    <div class="page-card" style="${accentVars('edge')}">
+      <span class="badge">${I.community} Edge Academy</span><h2>Community</h2>
+      <p class="lead">Join the Edge Academy community.</p>
+      <div class="grid-list">${tiles}</div>
+    </div>`);
+}
+
 function renderDetail(slug) {
   const d = DATA.pages[slug];
   if (!d) { location.hash = ""; return; }
@@ -789,6 +851,7 @@ function route() {
   const h = location.hash.replace(/^#\/?/, "");
   if (!h)                           renderHome();
   else if (h === "courses")         renderCourses();
+  else if (h === "community")       renderCommunity();
   else if (h === "social")          renderSocial();
   else if (h.startsWith("page/"))   renderDetail(h.slice(5));
   else if (h.startsWith("course/")) renderCourse(h.slice(7));
@@ -859,7 +922,23 @@ function onChangeSelectOrCheck(el) {
   if (ch) {
     const p = ch.split(".");
     if (p[0] === "project") { const r = findProject(p[1]); if (r) { r[p[2]] = el.value; touch(r); } }
-    else if (p[0] === "leaf") { const r = findLeaf(p[1], p[2]); if (r) { r[p[3]] = el.value; touch(r); if (r.nav === "page" && r.target && !DATA.pages[r.target]) { DATA.pages[r.target] = { title: r.lbl, project: "", accent: "edge", desc: "", lastEdited: now() }; } } }
+    else if (p[0] === "leaf") {
+      const r = findLeaf(p[1], p[2]);
+      if (r) {
+        r[p[3]] = el.value; touch(r);
+        if (p[3] === "nav") {
+          // when the action changes, give the target a sensible default for that action
+          if (r.nav === "view" && !["courses", "community", "social"].includes(r.target)) r.target = "courses";
+          else if (r.nav === "ext" && !/^https?:/i.test(r.target || "")) r.target = "";
+          else if (r.nav === "none") r.target = "";
+          else if (r.nav === "page") { if (!r.target || ["courses","community","social"].includes(r.target)) r.target = slugify(r.lbl); }
+        }
+        // ensure an info page exists to back a "page" item
+        if (r.nav === "page" && r.target && !DATA.pages[r.target]) {
+          DATA.pages[r.target] = { title: r.lbl, project: "", accent: "edge", desc: "", lastEdited: now() };
+        }
+      }
+    }
     save(); reRender(); return;
   }
   // owner checkboxes
@@ -902,7 +981,7 @@ function importJSON(file) {
       if (!parsed.people || !parsed.projects) throw new Error("Not a flowchart data file");
       DATA = parsed;
       if (!DATA.settings) DATA.settings = clone(DEFAULT_DATA.settings);
-      if (!DATA.links) DATA.links = clone(DEFAULT_DATA.links);
+      DATA.links = Object.assign({}, clone(DEFAULT_DATA.links), DATA.links || {});
       if (!DATA.pages) DATA.pages = {};
       seedTimestamps(DATA);
       save(); location.hash = ""; reRender();
