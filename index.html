@@ -220,10 +220,154 @@ textarea.edit-input { resize: vertical; min-height: 46px; line-height: 1.4; }
 .back .icon { width: 16px; height: 16px; }
 .soon { margin-top: 22px; padding: 16px 18px; border-radius: 12px; background: #fbfdff; border: 1px dashed var(--line); color: var(--ink-soft); font-size: .9rem; line-height: 1.55; }
 
+/* ---------- setup / command interface ---------- */
+.setup { margin-top: 26px; }
+.setup-head { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.setup-kicker { display: inline-flex; align-items: center; gap: 6px; font-size: .7rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent-ink); }
+.setup-kicker .icon { width: 15px; height: 15px; }
+.setup-title { margin: 0; font-size: 1.05rem; }
+.setup-note { margin: 8px 0 14px; color: var(--ink-soft); font-size: .9rem; line-height: 1.5; }
+.codeblock { border: 1px solid #28344a; border-radius: 14px; overflow: hidden; box-shadow: 0 10px 26px rgba(20,30,50,.16); }
+.cb-bar { display: flex; align-items: center; gap: 7px; padding: 10px 14px; background: #16202e; }
+.cb-dot { width: 11px; height: 11px; border-radius: 50%; flex: 0 0 auto; }
+.cb-name { font-size: .74rem; color: #8aa0bd; margin-left: 6px; letter-spacing: .04em; }
+.copy-btn { margin-left: auto; font: inherit; font-size: .74rem; font-weight: 600; cursor: pointer; color: #cfe0f5; background: #243247; border: 1px solid #33455f; padding: 6px 12px; border-radius: 8px; min-height: 30px; transition: background .15s ease; }
+.copy-btn:hover { background: #2d3e57; }
+.codeblock pre { margin: 0; padding: 16px 18px; background: #1e2a3a; color: #e8f0fb; font-family: "Cascadia Code", "Consolas", ui-monospace, monospace; font-size: .84rem; line-height: 1.7; overflow-x: auto; white-space: pre-wrap; word-break: break-word; }
+.setup-warn { margin: 12px 0 0; font-size: .78rem; color: #8a6212; background: #fff7e6; border: 1px solid #ffe2a8; border-radius: 8px; padding: 9px 11px; line-height: 1.45; }
+
+/* ---------- AI Foundations dashboard ---------- */
+.dash-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; flex-wrap: wrap; margin-bottom: 20px; }
+.dash-h1 { margin: 10px 0 2px; font-size: clamp(1.4rem, 3vw, 1.9rem); text-transform: uppercase; letter-spacing: -.5px; }
+.dash-sub { margin: 0; color: var(--ink-soft); font-size: .9rem; }
+.dash { display: grid; grid-template-columns: 1fr; gap: 18px; align-items: start; }
+@media (min-width: 900px) { .dash { grid-template-columns: minmax(0,2.5fr) minmax(0,1fr); } }
+.dash-main, .dash-side { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+.dash-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+@media (max-width: 560px) { .dash-metrics { grid-template-columns: 1fr; } }
+.metric { display: flex; align-items: center; gap: 14px; background: #f8fafc; border: 1px solid var(--line); border-radius: 14px; padding: 15px 16px; }
+.metric .m-ico { width: 46px; height: 46px; border-radius: 11px; background: #fff; border: 1px solid var(--line); display: grid; place-items: center; color: var(--edge-ink); flex: 0 0 auto; }
+.metric .m-ico .icon { width: 22px; height: 22px; }
+.metric .m-lbl { font-size: .72rem; color: var(--ink-soft); font-weight: 600; }
+.metric .m-val { font-size: 1.5rem; font-weight: 800; line-height: 1.15; }
+.panel { background: #fff; border: 1px solid var(--line); border-radius: 16px; overflow: hidden; box-shadow: 0 6px 18px rgba(31,52,90,.06); }
+.panel-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 14px 18px; border-bottom: 1px solid var(--line); background: #fff; }
+.panel-head h3 { margin: 0; font-size: 1.05rem; }
+.panel-title-sm { font-size: .7rem; text-transform: uppercase; letter-spacing: .14em; font-weight: 800; color: var(--ink-soft); }
+.small-link { background: none; border: none; color: var(--edge-ink); font: inherit; font-weight: 700; font-size: .78rem; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; }
+.small-link:hover { text-decoration: underline; }
+.panel-body { padding: 16px 18px; display: flex; flex-direction: column; gap: 14px; }
+.roadmap { width: 100%; border-collapse: collapse; }
+.roadmap th { text-align: left; font-size: .64rem; text-transform: uppercase; letter-spacing: .08em; color: var(--ink-soft); font-weight: 700; padding: 11px 18px; background: #f8fafc; border-bottom: 1px solid var(--line); }
+.roadmap td { padding: 12px 18px; border-bottom: 1px solid var(--line); font-size: .88rem; vertical-align: middle; }
+.roadmap tbody tr:last-child td { border-bottom: none; }
+.roadmap tbody tr:hover td { background: #f8fafc; }
+.mod-name { display: flex; align-items: center; gap: 12px; }
+.mod-num { width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center; font-weight: 800; font-size: .85rem; flex: 0 0 auto; background: #dbeafe; color: var(--edge-ink); }
+.mod-title { display: block; font-weight: 600; }
+.mod-desc { display: block; font-size: .76rem; color: var(--ink-soft); margin-top: 2px; line-height: 1.4; }
+.status-select { appearance: none; -webkit-appearance: none; font: inherit; font-size: .66rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; border: 1px solid transparent; border-radius: 999px; padding: 6px 26px 6px 12px; cursor: pointer; background-repeat: no-repeat; background-position: right 9px center; background-size: 9px; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%23555' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>"); }
+.status-select.published { background-color: #dcfce7; color: #166534; }
+.status-select.review { background-color: #fef9c3; color: #854d0e; }
+.status-select.draft { background-color: #eef1f5; color: #5b6677; }
+.status-select:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+/* the expanded option list stays neutral grey regardless of status */
+.status-select option { background-color: #eef1f5; color: var(--ink); font-weight: 600; }
+.mod-time { color: var(--ink-soft); font-size: .82rem; white-space: nowrap; }
+.badge-status { display: inline-block; padding: 4px 11px; border-radius: 999px; font-size: .64rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; white-space: nowrap; }
+.badge-status.published { background: #dcfce7; color: #166534; }
+.badge-status.review { background: #fef9c3; color: #854d0e; }
+.badge-status.draft { background: #eef1f5; color: #5b6677; }
+.dash-bento { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 620px) { .dash-bento { grid-template-columns: 1fr; } }
+.bento-ai { background: linear-gradient(135deg, var(--edge), var(--edge-ink)); color: #fff; border-radius: 16px; padding: 18px; }
+.bento-ai h4 { margin: 0 0 8px; font-size: 1.02rem; display: flex; align-items: center; gap: 8px; }
+.bento-ai h4 .icon { width: 20px; height: 20px; }
+.bento-ai p { margin: 0 0 14px; font-size: .82rem; opacity: .93; line-height: 1.5; }
+.pill-btn { background: #fff; color: var(--edge-ink); border: none; font: inherit; font-weight: 700; font-size: .78rem; padding: 8px 13px; border-radius: 9px; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+.pill-btn .icon { width: 15px; height: 15px; }
+.pill-btn:hover { background: #eef4ff; }
+.bento-next { background: #fff; border: 1px solid var(--line); border-radius: 16px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; gap: 16px; }
+.bento-next .kicker { color: var(--edge-ink); font-weight: 800; font-size: .66rem; text-transform: uppercase; letter-spacing: .1em; }
+.bento-next h4 { margin: 4px 0 0; font-size: 1.12rem; }
+.next-ico { width: 46px; height: 46px; border-radius: 50%; background: #dbeafe; color: var(--edge-ink); display: grid; place-items: center; flex: 0 0 auto; }
+.prog-row { display: flex; justify-content: space-between; font-size: .74rem; color: var(--ink-soft); margin-bottom: 6px; font-weight: 600; }
+.progress { height: 8px; background: #eef1f5; border-radius: 999px; overflow: hidden; }
+.progress > i { display: block; height: 100%; background: var(--edge); border-radius: 999px; }
+.activity-item { display: flex; gap: 11px; }
+.activity-item .dot2 { width: 8px; height: 8px; border-radius: 50%; margin-top: 6px; flex: 0 0 auto; }
+.activity-item .ai-txt { margin: 0; font-size: .83rem; line-height: 1.4; }
+.activity-item .ai-time { margin: 2px 0 0; font-size: .72rem; color: var(--ink-soft); }
+.panel-foot-btn { width: 100%; padding: 12px; background: #fff; border: none; border-top: 1px solid var(--line); color: var(--edge-ink); font: inherit; font-weight: 700; font-size: .8rem; cursor: pointer; }
+.panel-foot-btn:hover { background: #f8fafc; }
+.res-item { display: flex; align-items: center; gap: 12px; padding: 10px; border-radius: 10px; border: 1px solid transparent; cursor: pointer; }
+.res-item:hover { background: #f8fafc; border-color: var(--line); }
+.res-ico { color: var(--edge-ink); display: grid; place-items: center; flex: 0 0 auto; }
+.res-ico .icon { width: 20px; height: 20px; }
+.res-name { margin: 0; font-size: .83rem; font-weight: 600; }
+.res-meta { margin: 2px 0 0; font-size: .7rem; color: var(--ink-soft); }
+.dropzone { border: 1px dashed #b9c6da; border-radius: 10px; padding: 16px; text-align: center; color: var(--ink-soft); font-size: .76rem; display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; transition: background .15s ease, border-color .15s ease, color .15s ease; }
+.dropzone .icon { width: 20px; height: 20px; }
+.dropzone:hover { background: #f4f8ff; border-color: var(--brand); color: var(--edge-ink); }
+.dropzone.drag { background: #eef4ff; border-color: var(--edge); color: var(--edge-ink); }
+/* clickable status badge */
+button.badge-status { border: 1px solid transparent; font-family: inherit; cursor: pointer; transition: filter .15s ease, transform .15s ease; }
+button.badge-status:hover { filter: brightness(.95); transform: translateY(-1px); }
+/* row delete */
+.mod-act { text-align: right; width: 1%; white-space: nowrap; }
+.dash-x { width: 26px; height: 26px; border-radius: 7px; border: 1px solid var(--line); background: #fff; color: var(--ink-soft); cursor: pointer; font-size: 16px; line-height: 1; display: inline-grid; place-items: center; opacity: 0; transition: opacity .15s ease, background .15s ease, color .15s ease, border-color .15s ease; }
+.roadmap tbody tr:hover .dash-x, .dash-x:focus-visible { opacity: 1; }
+.dash-x:hover { background: #fdf2f4; color: var(--danger); border-color: #f0c2cb; }
+.roadmap-count { font-size: .76rem; color: var(--ink-soft); font-weight: 600; }
+/* resource delete + applied note */
+.res-text { flex: 1; min-width: 0; }
+.res-del { flex: 0 0 auto; width: 24px; height: 24px; border-radius: 6px; border: none; background: none; color: var(--ink-soft); cursor: pointer; font-size: 16px; line-height: 1; opacity: 0; transition: opacity .15s ease, color .15s ease; }
+.res-item:hover .res-del, .res-del:focus-visible { opacity: 1; }
+.res-del:hover { color: var(--danger); }
+.applied-note { display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,.18); padding: 8px 13px; border-radius: 9px; font-size: .78rem; font-weight: 700; }
+.applied-note .icon { width: 15px; height: 15px; }
+/* New Module form */
+.form-grid { display: flex; flex-direction: column; gap: 14px; margin-top: 22px; }
+.form-field { display: block; }
+.form-lab { display: block; font-size: .72rem; text-transform: uppercase; letter-spacing: .06em; color: var(--ink-soft); font-weight: 700; margin-bottom: 5px; }
+.form-lab i { color: var(--danger); font-style: normal; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 520px) { .form-row { grid-template-columns: 1fr; } }
+.file-input { padding: 8px 9px; background: #fbfdff; }
+.form-actions { display: flex; gap: 10px; margin-top: 24px; flex-wrap: wrap; }
+/* inline timeline dropdown + clickable module row */
+.cell-select { font: inherit; font-size: .8rem; padding: 5px 8px; border: 1px solid var(--line); border-radius: 8px; background: #fff; color: var(--ink); cursor: pointer; max-width: 160px; }
+.cell-select:hover { border-color: var(--brand); }
+.mod-open { width: 100%; display: flex; align-items: center; gap: 12px; background: none; border: none; padding: 0; margin: 0; font: inherit; text-align: left; color: inherit; cursor: pointer; }
+.mod-text2 { min-width: 0; }
+.mod-open:hover .mod-title { color: var(--edge-ink); text-decoration: underline; }
+.next-sub { font-size: .76rem; color: var(--ink-soft); margin-top: 4px; }
+/* module detail page */
+.md-head { display: flex; align-items: flex-start; gap: 14px; margin: 16px 0 2px; }
+.md-num { width: 38px; height: 38px; font-size: 1rem; }
+.md-title-input { width: 100%; font: inherit; font-size: 1.5rem; font-weight: 800; border: 1px solid transparent; border-radius: 8px; padding: 4px 6px; margin: -4px -6px 0; color: var(--ink); background: transparent; }
+.md-title-input:hover { border-color: var(--line); }
+.md-title-input:focus { border-color: var(--brand); outline: none; background: #fff; }
+.md-sub { font-size: .82rem; color: var(--ink-soft); margin-top: 8px; }
+.md-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 22px; }
+@media (max-width: 600px) { .md-grid { grid-template-columns: 1fr; } }
+.md-field { display: flex; flex-direction: column; gap: 5px; }
+.md-select { align-self: flex-start; }
+.md-progress-wrap { margin-top: 22px; }
+.md-owner-card { display: flex; align-items: center; gap: 12px; margin-top: 18px; background: #f8fafc; border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+.md-avatars { display: flex; flex: 0 0 auto; }
+.md-avatar { width: 42px; height: 42px; border-radius: 50%; background: var(--edge); color: #fff; display: grid; place-items: center; font-weight: 800; font-size: .95rem; flex: 0 0 auto; }
+.md-avatars .md-avatar { box-shadow: 0 0 0 2px #f8fafc; }
+.md-avatars .md-avatar + .md-avatar { margin-left: -10px; }
+.md-avatar-none { background: #c1c9d6; }
+.md-owner-name { font-weight: 700; }
+.md-owner-role { font-size: .76rem; color: var(--ink-soft); }
+.md-docs { margin-top: 20px; }
+.md-doc-list { display: flex; flex-direction: column; gap: 8px; margin: 8px 0 12px; }
+.md-empty { margin: 8px 0 12px; font-size: .82rem; color: var(--ink-soft); }
+
 .hint { text-align: center; color: var(--ink-soft); font-size: .78rem; margin-top: 36px; }
 .footnote { text-align: center; color: var(--ink-soft); font-size: .72rem; margin-top: 18px; opacity: .8; }
-
-/* Hover tooltips removed — the soft drop shadow on hover (above) is the only hover cue. */
 
 /* toast */
 .toast {
@@ -278,9 +422,6 @@ textarea.edit-input { resize: vertical; min-height: 46px; line-height: 1.4; }
 <script>
 /* =========================================================================
    MyRepublic AI Team — connected flowchart (self-contained single file)
-   Single source of editable content lives in DEFAULT_DATA below.
-   Anyone with the file can edit content in the browser (Edit button),
-   which autosaves to this browser, and can Export/Import a JSON to share.
    ========================================================================= */
 
 const STORAGE_KEY = "mr-ai-flowchart-v1";
@@ -326,7 +467,7 @@ const DEFAULT_DATA = {
     "ai-integration-services": { title: "AI Integration Services", project: "Marketplace", accent: "marketplace", desc: "Connect AI capabilities into your existing systems and workflows." },
   },
   courses: [
-    { slug: "ai-foundations",      title: "AI Foundations",          sub: "Start here" },
+    { slug: "ai-foundations",      title: "AI Foundations",          sub: "Start here", view: "dashboard" },
     { slug: "prompt-engineering",  title: "Prompt Engineering",      sub: "Core skill" },
     { slug: "workflow-automation", title: "Workflow Automation",     sub: "Hands-on" },
     { slug: "building-ai-agents",  title: "Building AI Agents",      sub: "Advanced" },
@@ -338,16 +479,47 @@ const DEFAULT_DATA = {
     skool: "https://www.skool.com/edge-academy-1587",
     edgeAcademy: "https://www.edgeacademy.ai/en",
   },
+  dashboard: {
+    studentsEnrolled: "150+",
+    milestoneTitle: "Next Milestone: Q4 Launch",
+    recommendation: {
+      text: "Based on recent student performance in Module 2, we suggest increasing the focus on Governance Ethics by 15% to improve retention scores.",
+      applied: false,
+    },
+    modules: [
+      { id: "m1", name: "Introduction to Generative AI & Modern Business", timeline: "Q1 Launch", status: "published", owners: ["jeremy"], desc: "", files: [] },
+      { id: "m2", name: "AI in Your Existing Tools: The Microsoft Copilot Suite or G Suite", timeline: "Q1 Launch", status: "published", owners: ["raph"], desc: "", files: [] },
+      { id: "m3", name: "Mapping Your Business for Automation", timeline: "Q2 Review", status: "review", owners: ["jeremy", "joel"], desc: "", files: [] },
+      { id: "m4", name: "Building Your Automation Stack", timeline: "Q2 Planned", status: "draft", owners: ["kenny"], desc: "", files: [] },
+      { id: "m5", name: "Prompt Engineering for Business Workflows", timeline: "Q3 Planned", status: "draft", owners: ["qianqian"], desc: "", files: [] },
+      { id: "m6", name: "Hands-On Builds: Real-World AI Automation Use Cases", timeline: "Q3 Planned", status: "draft", owners: ["joel"], desc: "", files: [] },
+      { id: "m7", name: "AI-Powered Content & Visual Creation", timeline: "Q3 Planned", status: "draft", owners: ["raph"], desc: "", files: [] },
+      { id: "m8", name: "Governance, Compliance & Responsible AI", timeline: "Q4 Review", status: "review", owners: ["jeremy"], desc: "", files: [] },
+    ],
+    activity: [
+      { html: "Module “<strong>Introduction to Generative AI &amp; Modern Business</strong>” published.", when: "2 days ago" },
+      { html: "Module “<strong>AI in Your Existing Tools: The Microsoft Copilot Suite or G Suite</strong>” published.", when: "2 days ago" },
+      { html: "“<strong>Mapping Your Business for Automation</strong>” moved to In Review.", when: "Yesterday" },
+      { html: "“<strong>Governance, Compliance &amp; Responsible AI</strong>” moved to In Review.", when: "Yesterday" },
+    ],
+    resources: [
+      { id: "r1", name: "Course Guidelines.pdf", meta: "2.4 MB · PDF", icon: "file" },
+      { id: "r2", name: "Intro Video Assets", meta: "15 Files · MP4", icon: "video" },
+      { id: "r3", name: "Graphics Kit v2", meta: "120 MB · ZIP", icon: "folder" },
+    ],
+  },
 };
 
 const ACCENTS = ["edge", "consulting", "marketplace", "bespoke"];
-/* Friendly colour names shown in the edit dropdown (the values above are just colour themes) */
 const ACCENT_LABELS = { edge: "Blue", consulting: "Teal", marketplace: "Purple", bespoke: "Pink" };
 const RETENTION_OPTIONS = [1, 3, 4, 6, 12, 24, 36];
+const DASH_STATUS = { draft: "Draft", review: "In Review", published: "Published" };
+const DASH_NUMCLASS = { published: "done", review: "review", draft: "draft" };
+const DASH_ORDER = ["draft", "review", "published"];
+const TIMELINE_PHASES = ["Planned", "Launch", "Review"];
+const TIMELINE_OPTIONS = ["Q1", "Q2", "Q3", "Q4"].reduce((a, q) => a.concat(TIMELINE_PHASES.map(p => q + " " + p)), []);
+const ACTIVITY_COALESCE_MS = 120000; // collapse repeated same-type edits on one module within 2 minutes
 
-/* =========================================================================
-   SVG ICONS (no emoji)
-   ========================================================================= */
 const I = {
   chevron:  '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 6 15 12 9 18"/></svg>',
   back:     '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>',
@@ -362,16 +534,21 @@ const I = {
   download: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>',
   upload:   '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>',
   dot:      '<svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="5"/></svg>',
+  plus:     '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>',
+  check:    '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>',
+  spark:    '<svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l1.9 5.6L19.5 9l-5.6 1.4L12 16l-1.9-5.6L4.5 9l5.6-1.4z"/></svg>',
+  rocket:   '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg>',
+  file:     '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>',
+  video:    '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>',
+  folder:   '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>',
 };
 const leafIcons = { "Courses": I.cap, "Community": I.community, "Social Media": I.share };
 
-/* =========================================================================
-   STATE + PERSISTENCE
-   ========================================================================= */
 let DATA = null;
 let editing = false;
 let orgObserver = null;
 let saveTimer = null;
+let dashActivityExpanded = false;
 
 const app = document.getElementById("app");
 const crumb = document.getElementById("crumb");
@@ -387,7 +564,6 @@ const slugify = (s) => String(s).toLowerCase().replace(/[^a-z0-9]+/g, "-").repla
 
 function touch(rec) { if (rec) rec.lastEdited = now(); }
 
-/* stamp lastEdited on every editable record that lacks one */
 function seedTimestamps(d, ts) {
   ts = ts || now();
   const stamp = (r) => { if (r && r.lastEdited == null) r.lastEdited = ts; };
@@ -407,11 +583,17 @@ function load() {
     DATA = clone(DEFAULT_DATA);
   }
   if (!DATA.settings) DATA.settings = clone(DEFAULT_DATA.settings);
-  // fill in any missing link keys (e.g. new skool / edgeAcademy) without losing saved edits
   DATA.links = Object.assign({}, clone(DEFAULT_DATA.links), DATA.links || {});
+  DATA.dashboard = Object.assign({}, clone(DEFAULT_DATA.dashboard), DATA.dashboard || {});
+  normalizeDashboard();
   if (!DATA.pages) DATA.pages = {};
+  (DEFAULT_DATA.courses || []).forEach(dc => {
+    const sc = (DATA.courses || []).find(c => c.slug === dc.slug);
+    if (!sc) return;
+    Object.keys(dc).forEach(k => { if (sc[k] == null) sc[k] = dc[k]; });
+    if (sc.view === "dashboard" && sc.code) delete sc.code;
+  });
   seedTimestamps(DATA);
-  // run auto-cleanup on load if enabled
   runCleanup(false);
 }
 
@@ -430,9 +612,6 @@ function toast(msg, ms) {
   toast._t = setTimeout(() => toastEl.classList.remove("show"), ms || 3200);
 }
 
-/* =========================================================================
-   AUTO-CLEANUP — delete items not edited within the retention window
-   ========================================================================= */
 function cutoffTime(months) {
   const d = new Date();
   d.setMonth(d.getMonth() - months);
@@ -449,13 +628,11 @@ function runCleanup(manual) {
   const stale = (r) => r && r.lastEdited != null && r.lastEdited < cutoff;
   const removed = [];
 
-  // people
   const keptPeople = [];
   (DATA.people || []).forEach(p => { if (stale(p)) removed.push("Person: " + p.name); else keptPeople.push(p); });
   DATA.people = keptPeople;
   const peopleIds = new Set(DATA.people.map(p => p.id));
 
-  // projects (and their leaves); drop dangling owner refs
   const keptProjects = [];
   (DATA.projects || []).forEach(pr => {
     if (stale(pr)) { removed.push("Project: " + pr.name); return; }
@@ -467,12 +644,10 @@ function runCleanup(manual) {
   });
   DATA.projects = keptProjects;
 
-  // courses
   const keptCourses = [];
   (DATA.courses || []).forEach(c => { if (stale(c)) removed.push("Course: " + c.title); else keptCourses.push(c); });
   DATA.courses = keptCourses;
 
-  // detail pages
   Object.keys(DATA.pages || {}).forEach(k => { if (stale(DATA.pages[k])) { removed.push("Page: " + DATA.pages[k].title); delete DATA.pages[k]; } });
 
   if (removed.length) {
@@ -486,17 +661,11 @@ function runCleanup(manual) {
   }
 }
 
-/* =========================================================================
-   FINDERS
-   ========================================================================= */
 const findPerson  = (id) => (DATA.people || []).find(p => p.id === id);
 const findProject = (id) => (DATA.projects || []).find(p => p.id === id);
 const findLeaf    = (pid, lid) => { const pr = findProject(pid); return pr && (pr.leaves || []).find(l => l.id === lid); };
 const findCourse  = (slug) => (DATA.courses || []).find(c => c.slug === slug);
 
-/* =========================================================================
-   VIEWS — HOME
-   ========================================================================= */
 function renderHome() {
   crumb.textContent = "AI Team Map · Connected";
 
@@ -539,8 +708,6 @@ function renderHome() {
       : `<span><span class="p-title">${esc(pr.name)}</span><span class="owners" style="display:block">${esc(ownersText)}</span></span>
          <span class="chevron">${I.chevron}</span>`;
 
-    // In edit mode the header holds form controls, so it must be a <div>, not a
-    // <button> (a button can't legally contain inputs/selects/buttons — that nests projects).
     const headerEl = editing
       ? `<div class="project-header project-edit" id="h-${pr.id}">${headerInner}</div>`
       : `<button class="project-header" id="h-${pr.id}" aria-expanded="false" data-tip="${esc(pr.tip)}">${headerInner}</button>`;
@@ -592,7 +759,6 @@ function renderHome() {
       <div class="footnote">Built to the UI/UX Pro Max checklist — SVG icons, AA contrast, keyboard focus, 44px targets, reduced-motion safe.</div>`}
   `;
 
-  // connectors only meaningful in view mode (ids exist there)
   if (!editing) {
     drawWires();
     setTimeout(drawWires, 150);
@@ -662,7 +828,7 @@ function maintenancePanel() {
   return `
     <div class="maint">
       <h3>Maintenance · auto-cleanup</h3>
-      <p class="note">When enabled, items (people, projects, items, courses, pages) that haven't been edited within the chosen window are deleted — on load and when you press "Run now". Editing any field resets that item's timer. The Head of AI node is never auto-deleted. <strong>This is destructive; Export a backup first.</strong></p>
+      <p class="note">When enabled, items (people, projects, items, courses, pages) that haven't been edited within the chosen window are deleted — on load and when you press “Run now”. Editing any field resets that item's timer. The Head of AI node is never auto-deleted. <strong>This is destructive; Export a backup first.</strong></p>
       <div class="ctl">
         <label class="switch"><input type="checkbox" id="cleanupToggle" ${s.autoCleanup ? "checked" : ""}> Enable auto-cleanup</label>
         <label class="switch" style="font-weight:500">Delete items not edited in the last
@@ -677,9 +843,6 @@ function maintenancePanel() {
     </div>`;
 }
 
-/* =========================================================================
-   VIEWS — SUB PAGES
-   ========================================================================= */
 function pageShell(inner) {
   return `<button class="back" data-back>${I.back}<span>Back to team map</span></button>${inner}`;
 }
@@ -709,15 +872,426 @@ function renderCourses() {
     </div>`);
 }
 
+/* ----- AI Foundations dashboard: state + actions ----- */
+function relativeTime(ts) {
+  const s = Math.max(0, Math.floor((Date.now() - ts) / 1000));
+  if (s < 60) return "just now";
+  const m = Math.floor(s / 60); if (m < 60) return m + " minute" + (m > 1 ? "s" : "") + " ago";
+  const h = Math.floor(m / 60); if (h < 24) return h + " hour" + (h > 1 ? "s" : "") + " ago";
+  const dd = Math.floor(h / 24); if (dd < 7) return dd + " day" + (dd > 1 ? "s" : "") + " ago";
+  const w = Math.floor(dd / 7); return w + " week" + (w > 1 ? "s" : "") + " ago";
+}
+function humanSize(b) {
+  if (b == null) return "";
+  const u = ["B", "KB", "MB", "GB"]; let n = b, i = 0;
+  while (n >= 1024 && i < u.length - 1) { n /= 1024; i++; }
+  return (i === 0 || n >= 10 ? Math.round(n) : n.toFixed(1)) + " " + u[i];
+}
+function iconForFile(name) {
+  const ext = (String(name).split(".").pop() || "").toLowerCase();
+  if (["mp4", "mov", "avi", "mkv", "webm", "m4v"].includes(ext)) return "video";
+  if (["zip", "rar", "7z", "tar", "gz"].includes(ext)) return "folder";
+  return "file";
+}
+function logActivity(html, key) {
+  const acts = DATA.dashboard.activity;
+  const t = now();
+  if (key) { // a burst of the same action on the same module collapses to its final result
+    const i = acts.findIndex(a => a.key === key && a.ts != null && (t - a.ts) < ACTIVITY_COALESCE_MS);
+    if (i > -1) acts.splice(i, 1);
+  }
+  acts.unshift({ html: html, ts: t, key: key });
+  if (acts.length > 40) acts.length = 40;
+}
+function refreshDashboard() {
+  const y = window.scrollY;
+  route();
+  window.scrollTo(0, y);
+}
+function normalizeDashboard() {
+  (DATA.dashboard.modules || []).forEach(m => {
+    if (!Array.isArray(m.owners)) m.owners = m.owner ? [m.owner] : [];
+    delete m.owner;
+    if (!Array.isArray(m.files)) m.files = [];
+  });
+}
+function ownerName(id) { const p = findPerson(id); return p ? p.name : "Unassigned"; }
+function ownerInitials(id) {
+  const p = findPerson(id);
+  if (!p) return "—";
+  return p.name.trim().split(/\s+/).map(w => w[0]).slice(0, 2).join("").toUpperCase();
+}
+function timelineOptionsHTML(sel) {
+  let opts = TIMELINE_OPTIONS.slice();
+  if (sel && opts.indexOf(sel) === -1) opts = [sel].concat(opts);
+  return opts.map(o => `<option value="${esc(o)}" ${o === sel ? "selected" : ""}>${esc(o)}</option>`).join("");
+}
+function timelineRank(t) {
+  const s = String(t || "").toLowerCase();
+  const q = (s.match(/q([1-4])/) || [])[1];
+  const quarter = q ? parseInt(q, 10) : 9;
+  const phase = s.indexOf("launch") > -1 ? 0 : s.indexOf("review") > -1 ? 1 : s.indexOf("planned") > -1 ? 2 : 3;
+  return quarter * 10 + phase;
+}
+function nextMilestoneModule() {
+  const up = (DATA.dashboard.modules || []).filter(m => m.status !== "published");
+  if (!up.length) return null;
+  return up.slice().sort((a, b) => timelineRank(a.timeline) - timelineRank(b.timeline))[0];
+}
+function moduleProgress(status) { return status === "published" ? 100 : status === "review" ? 60 : 20; }
+function setModuleField(id, key, val, isSelect) {
+  const m = DATA.dashboard.modules.find(x => x.id === id);
+  if (!m || m[key] === val) return;
+  m[key] = val;
+  if (isSelect) {
+    if (key === "status") logActivity('“<strong>' + esc(m.name) + '</strong>” set to ' + (DASH_STATUS[val] || val) + ".", "status:" + id);
+    else if (key === "timeline") logActivity('“<strong>' + esc(m.name) + '</strong>” scheduled for ' + esc(val) + ".", "timeline:" + id);
+    else if (key === "owner") logActivity('“<strong>' + esc(m.name) + '</strong>” assigned to ' + esc(ownerName(val)) + ".", "owner:" + id);
+    save(); refreshDashboard();
+  } else {
+    save();
+  }
+}
+function submitNewModule() {
+  const nameEl = document.getElementById("nm-name");
+  const name = ((nameEl && nameEl.value) || "").trim();
+  if (!name) { toast("Please enter a module name."); if (nameEl) nameEl.focus(); return; }
+  const desc = (document.getElementById("nm-desc").value || "").trim();
+  const timeline = document.getElementById("nm-timeline").value || "Q1 Planned";
+  const status = document.getElementById("nm-status").value || "draft";
+  const owners = Array.from(document.querySelectorAll(".nm-owner-cb:checked")).map(c => c.value);
+  const files = [];
+  const fi = document.getElementById("nm-files");
+  if (fi && fi.files) Array.from(fi.files).forEach(f => {
+    const ext = (f.name.split(".").pop() || "").toUpperCase();
+    files.push({ id: genId("mf"), name: f.name, meta: humanSize(f.size) + (ext ? " · " + ext : ""), icon: iconForFile(f.name) });
+  });
+  DATA.dashboard.modules.push({ id: genId("mod"), name: name, desc: desc, timeline: timeline, status: status, owners: owners, files: files });
+  logActivity('New module “<strong>' + esc(name) + '</strong>” created' + (files.length ? " with " + files.length + " document" + (files.length > 1 ? "s" : "") : "") + ".");
+  save();
+  location.hash = "#/course/ai-foundations";
+  toast("Module created.");
+}
+function delModule(id) {
+  const m = DATA.dashboard.modules.find(x => x.id === id);
+  if (!m) return;
+  if (!confirm("Delete module “" + m.name + "”?")) return;
+  DATA.dashboard.modules = DATA.dashboard.modules.filter(x => x.id !== id);
+  logActivity('Module “<strong>' + esc(m.name) + '</strong>” deleted.');
+  save(); refreshDashboard();
+}
+function applyRecommendation() {
+  const r = DATA.dashboard.recommendation;
+  if (!r || r.applied) return;
+  r.applied = true;
+  logActivity("Applied the AI recommendation (Governance Ethics focus +15%).");
+  save(); refreshDashboard(); toast("Recommendation applied.");
+}
+function delResource(id) {
+  const r = DATA.dashboard.resources.find(x => x.id === id);
+  if (!r) return;
+  DATA.dashboard.resources = DATA.dashboard.resources.filter(x => x.id !== id);
+  logActivity('Removed “<strong>' + esc(r.name) + '</strong>” from the library.');
+  save(); refreshDashboard();
+}
+function addDashFiles(files) {
+  const arr = Array.from(files || []);
+  if (!arr.length) return;
+  arr.forEach(f => {
+    const ext = (f.name.split(".").pop() || "").toUpperCase();
+    DATA.dashboard.resources.unshift({ id: genId("res"), name: f.name, meta: humanSize(f.size) + (ext ? " · " + ext : ""), icon: iconForFile(f.name) });
+  });
+  logActivity(arr.length + " file" + (arr.length > 1 ? "s" : "") + " added to the Resource Library.");
+  save(); refreshDashboard(); toast(arr.length + " file" + (arr.length > 1 ? "s" : "") + " added.");
+}
+function toggleModuleOwner(mid, pid, on) {
+  const m = DATA.dashboard.modules.find(x => x.id === mid);
+  if (!m) return;
+  if (!Array.isArray(m.owners)) m.owners = [];
+  if (on) { if (m.owners.indexOf(pid) === -1) m.owners.push(pid); }
+  else m.owners = m.owners.filter(x => x !== pid);
+  logActivity('“<strong>' + esc(m.name) + '</strong>” leads: ' + (m.owners.length ? esc(m.owners.map(ownerName).join(", ")) : "Unassigned") + ".", "owners:" + mid);
+  save(); refreshDashboard();
+}
+function addModuleFiles(mid, files) {
+  const m = DATA.dashboard.modules.find(x => x.id === mid);
+  if (!m) return;
+  if (!Array.isArray(m.files)) m.files = [];
+  const arr = Array.from(files || []);
+  if (!arr.length) return;
+  arr.forEach(f => {
+    const ext = (f.name.split(".").pop() || "").toUpperCase();
+    m.files.unshift({ id: genId("mf"), name: f.name, meta: humanSize(f.size) + (ext ? " · " + ext : ""), icon: iconForFile(f.name) });
+  });
+  logActivity(arr.length + " document" + (arr.length > 1 ? "s" : "") + " added to “<strong>" + esc(m.name) + "</strong>”.");
+  save(); refreshDashboard(); toast(arr.length + " document" + (arr.length > 1 ? "s" : "") + " added.");
+}
+function delModuleFile(mid, fid) {
+  const m = DATA.dashboard.modules.find(x => x.id === mid);
+  if (!m || !Array.isArray(m.files)) return;
+  const f = m.files.find(x => x.id === fid);
+  m.files = m.files.filter(x => x.id !== fid);
+  if (f) logActivity('Removed “<strong>' + esc(f.name) + '</strong>” from “<strong>' + esc(m.name) + '</strong>”.');
+  save(); refreshDashboard();
+}
+function attachModuleUploader() {
+  const dz = document.getElementById("modDrop");
+  const fi = document.getElementById("modFile");
+  if (!dz) return;
+  const mid = dz.getAttribute("data-id");
+  if (fi) fi.addEventListener("change", (e) => { addModuleFiles(mid, e.target.files); e.target.value = ""; });
+  dz.addEventListener("click", () => { if (fi) fi.click(); });
+  dz.addEventListener("dragover", (e) => { e.preventDefault(); dz.classList.add("drag"); });
+  dz.addEventListener("dragleave", () => dz.classList.remove("drag"));
+  dz.addEventListener("drop", (e) => { e.preventDefault(); dz.classList.remove("drag"); addModuleFiles(mid, e.dataTransfer && e.dataTransfer.files); });
+}
+function attachDashboardHandlers() {
+  const dz = document.getElementById("dashDrop");
+  const fi = document.getElementById("dashFile");
+  if (fi) fi.addEventListener("change", (e) => { addDashFiles(e.target.files); e.target.value = ""; });
+  if (dz) {
+    dz.addEventListener("click", () => { if (fi) fi.click(); });
+    dz.addEventListener("dragover", (e) => { e.preventDefault(); dz.classList.add("drag"); });
+    dz.addEventListener("dragleave", () => dz.classList.remove("drag"));
+    dz.addEventListener("drop", (e) => { e.preventDefault(); dz.classList.remove("drag"); addDashFiles(e.dataTransfer && e.dataTransfer.files); });
+  }
+}
+
+function courseDashboard(c) {
+  const d = DATA.dashboard;
+  const mods = d.modules || [];
+  const total = mods.length;
+  const pub = mods.filter(m => m.status === "published").length;
+  const completion = total ? Math.round(pub / total * 100) : 0;
+  const readiness = total ? Math.round(mods.reduce((s, m) => s + (m.status === "published" ? 1 : m.status === "review" ? 0.5 : 0), 0) / total * 100) : 0;
+  const next = nextMilestoneModule();
+
+  const rows = mods.map((m, i) => `
+    <tr>
+      <td><button class="mod-open" type="button" data-mod-open data-id="${m.id}" title="Open module details"><span class="mod-num">${i + 1}</span><span class="mod-text2"><span class="mod-title">${esc(m.name)}</span>${m.desc ? `<span class="mod-desc">${esc(m.desc)}</span>` : ""}</span></button></td>
+      <td class="mod-time">${esc(m.timeline)}</td>
+      <td>
+        <select class="status-select ${m.status}" data-mod-change="status" data-id="${m.id}" aria-label="Module status">
+          <option value="draft" ${m.status === "draft" ? "selected" : ""}>Draft</option>
+          <option value="review" ${m.status === "review" ? "selected" : ""}>In Review</option>
+          <option value="published" ${m.status === "published" ? "selected" : ""}>Published</option>
+        </select>
+      </td>
+      <td class="mod-act"><button class="dash-x" type="button" data-dash-del-module data-id="${m.id}" title="Delete module" aria-label="Delete module">&times;</button></td>
+    </tr>`).join("");
+
+  const acts = d.activity || [];
+  const shown = dashActivityExpanded ? acts : acts.slice(0, 4);
+  const activity = shown.map((a, i) => {
+    const time = a.ts ? relativeTime(a.ts) : (a.when || "");
+    return `<div class="activity-item"><span class="dot2" style="background:${i < 2 ? "var(--edge)" : "#aab6c8"}"></span><div><p class="ai-txt">${a.html}</p><p class="ai-time">${esc(time)}</p></div></div>`;
+  }).join("");
+
+  const resources = (d.resources || []).map(r => `
+    <div class="res-item">
+      <span class="res-ico">${I[r.icon] || I.file}</span>
+      <div class="res-text"><p class="res-name">${esc(r.name)}</p><p class="res-meta">${esc(r.meta)}</p></div>
+      <button class="res-del" type="button" data-dash-del-res data-id="${r.id}" title="Remove" aria-label="Remove resource">&times;</button>
+    </div>`).join("");
+
+  const rec = d.recommendation || { text: "", applied: false };
+  const aiCard = `
+    <div class="bento-ai">
+      <h4>${I.spark} AI Recommended Adjustments</h4>
+      <p>${esc(rec.text)}</p>
+      ${rec.applied
+        ? `<span class="applied-note">${I.check} Recommendation applied</span>`
+        : `<button class="pill-btn" type="button" data-dash-apply>Apply Updates ${I.spark}</button>`}
+    </div>`;
+
+  return `
+    <div class="dash-top">
+      <div>
+        <span class="badge" style="${accentVars('edge')}">${I.cap} Edge Academy · ${esc(c.title)}</span>
+        <h2 class="dash-h1">Dashboard Overview</h2>
+        <p class="dash-sub">Track your curriculum progress and AI initiatives.</p>
+      </div>
+      <button class="btn" type="button" data-dash-add-module>${I.plus} Create New Module</button>
+    </div>
+
+    <div class="dash">
+      <div class="dash-main">
+        <div class="dash-metrics">
+          <div class="metric"><span class="m-ico">${I.layers}</span><div><div class="m-lbl">Total Modules</div><div class="m-val">${total}</div></div></div>
+          <div class="metric"><span class="m-ico">${I.community}</span><div><div class="m-lbl">Students Enrolled</div><div class="m-val">${esc(d.studentsEnrolled || "—")}</div></div></div>
+          <div class="metric"><span class="m-ico">${I.check}</span><div><div class="m-lbl">Completion Rate</div><div class="m-val">${completion}%</div></div></div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-head"><h3>Curriculum Roadmap</h3><span class="roadmap-count">${total} module${total === 1 ? "" : "s"}</span></div>
+          <div style="overflow-x:auto"><table class="roadmap">
+            <thead><tr><th>Module Name</th><th>Timeline</th><th>Status</th><th></th></tr></thead>
+            <tbody>${rows || `<tr><td colspan="4" style="padding:20px;text-align:center;color:var(--ink-soft)">No modules yet — use “Create New Module”.</td></tr>`}</tbody>
+          </table></div>
+        </div>
+
+        <div class="dash-bento">
+          ${aiCard}
+          <div class="bento-next">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">
+              <div>
+                <div class="kicker">Coming Soon</div>
+                <h4>${next ? esc(next.name) : "All modules launched"}</h4>
+                <div class="next-sub">${next ? esc(next.timeline) + " · " + DASH_STATUS[next.status] : "Every module is published 🎉"}</div>
+              </div>
+              <span class="next-ico">${I.rocket}</span>
+            </div>
+            <div>
+              <div class="prog-row"><span>Curriculum Readiness</span><span>${readiness}%</span></div>
+              <div class="progress"><i style="width:${readiness}%"></i></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dash-side">
+        <div class="panel">
+          <div class="panel-head"><span class="panel-title-sm">Recent Activity</span></div>
+          <div class="panel-body">${activity || `<p class="ai-time">No activity yet.</p>`}</div>
+          ${acts.length > 4 ? `<button class="panel-foot-btn" type="button" data-dash-activity-toggle>${dashActivityExpanded ? "Show less" : "View All Activity"}</button>` : ""}
+        </div>
+        <div class="panel">
+          <div class="panel-head"><span class="panel-title-sm">Resource Library</span></div>
+          <div class="panel-body">
+            ${resources}
+            <input type="file" id="dashFile" multiple hidden>
+            <div class="dropzone" id="dashDrop" title="Click or drop files to add">${I.upload}<span>Drop files here to upload</span></div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+}
+
+function renderModuleDetail(id) {
+  const mods = DATA.dashboard.modules || [];
+  const m = mods.find(x => x.id === id);
+  if (!m) { location.hash = "#/course/ai-foundations"; return; }
+  const idx = mods.indexOf(m) + 1;
+  const prog = moduleProgress(m.status);
+  const owners = m.owners || [];
+  const ownersText = owners.length ? owners.map(ownerName).join(", ") : "Unassigned";
+  const avatars = owners.length
+    ? owners.map(pid => `<span class="md-avatar" title="${esc(ownerName(pid))}">${esc(ownerInitials(pid))}</span>`).join("")
+    : `<span class="md-avatar md-avatar-none">—</span>`;
+  const ownerChecks = DATA.people.map(p =>
+    `<label><input type="checkbox" data-mod-owner="${p.id}" data-id="${m.id}" ${owners.indexOf(p.id) > -1 ? "checked" : ""}> ${esc(p.name)}</label>`).join("");
+  const docs = (m.files || []).map(f =>
+    `<div class="res-item"><span class="res-ico">${I[f.icon] || I.file}</span><div class="res-text"><p class="res-name">${esc(f.name)}</p><p class="res-meta">${esc(f.meta)}</p></div><button class="res-del" type="button" data-mod-del-file data-mid="${m.id}" data-fid="${f.id}" title="Remove" aria-label="Remove document">&times;</button></div>`).join("");
+  crumb.textContent = "Edge Academy · " + m.name;
+  app.innerHTML = `
+    <button class="back" data-back-dash>${I.back}<span>Back to dashboard</span></button>
+    <div class="page-card" style="${accentVars('edge')}; max-width:820px; margin:0 auto;">
+      <span class="badge">${I.cap} Edge Academy · AI Foundations</span>
+      <div class="md-head">
+        <span class="mod-num md-num">${idx}</span>
+        <div style="flex:1; min-width:0">
+          <input class="md-title-input" data-mod-bind="name" data-id="${m.id}" value="${esc(m.name)}" aria-label="Module name">
+          <div class="md-sub">Module ${idx} · led by <strong>${esc(ownersText)}</strong></div>
+        </div>
+      </div>
+
+      <div class="md-grid">
+        <div class="md-field"><span class="form-lab">Status</span>
+          <select class="status-select ${m.status} md-select" data-mod-change="status" data-id="${m.id}" aria-label="Status">
+            <option value="draft" ${m.status === "draft" ? "selected" : ""}>Draft</option>
+            <option value="review" ${m.status === "review" ? "selected" : ""}>In Review</option>
+            <option value="published" ${m.status === "published" ? "selected" : ""}>Published</option>
+          </select></div>
+        <div class="md-field"><span class="form-lab">Timeline</span>
+          <select class="edit-input" data-mod-change="timeline" data-id="${m.id}">${timelineOptionsHTML(m.timeline)}</select></div>
+      </div>
+
+      <div class="md-field" style="margin-top:14px"><span class="form-lab">In charge (select any)</span>
+        <div class="team-pick">${ownerChecks}</div>
+      </div>
+
+      <div class="md-progress-wrap">
+        <div class="prog-row"><span>Progress</span><span>${prog}% · ${DASH_STATUS[m.status]}</span></div>
+        <div class="progress"><i style="width:${prog}%"></i></div>
+      </div>
+
+      <div class="md-owner-card">
+        <div class="md-avatars">${avatars}</div>
+        <div><div class="md-owner-name">${esc(ownersText)}</div><div class="md-owner-role">Module lead${owners.length > 1 ? "s" : ""}</div></div>
+      </div>
+
+      <label class="form-field" style="margin-top:18px;display:block"><span class="form-lab">Description</span>
+        <textarea class="edit-input" data-mod-bind="desc" data-id="${m.id}" placeholder="What this module covers, learning outcomes, notes…">${esc(m.desc || "")}</textarea></label>
+
+      <div class="md-docs">
+        <span class="form-lab">Documents</span>
+        <div class="md-doc-list">${docs || `<p class="md-empty">No documents yet.</p>`}</div>
+        <input type="file" id="modFile" multiple hidden>
+        <div class="dropzone" id="modDrop" data-id="${m.id}" title="Click or drop files to add">${I.upload}<span>Drop documents here to upload</span></div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn ghost" type="button" data-back-dash>Back to dashboard</button>
+        <button class="btn danger" type="button" data-dash-del-module data-id="${m.id}">Delete module</button>
+      </div>
+    </div>`;
+  window.scrollTo(0, 0);
+  attachModuleUploader();
+}
+
+function renderNewModule() {
+  crumb.textContent = "Edge Academy · New Module";
+  app.innerHTML = `
+    <button class="back" data-back-dash>${I.back}<span>Back to dashboard</span></button>
+    <div class="page-card" style="${accentVars('edge')}; max-width:760px; margin:0 auto;">
+      <span class="badge">${I.plus} Edge Academy · AI Foundations</span>
+      <h2>Create New Module</h2>
+      <p class="lead">Add a module to the curriculum roadmap. Only the name is required.</p>
+      <div class="form-grid">
+        <label class="form-field"><span class="form-lab">Module name <i>*</i></span>
+          <input id="nm-name" class="edit-input" type="text" placeholder="e.g. Working with AI Agents"></label>
+        <label class="form-field"><span class="form-lab">Short description</span>
+          <textarea id="nm-desc" class="edit-input" placeholder="One or two lines about what this module covers."></textarea></label>
+        <div class="form-row">
+          <label class="form-field"><span class="form-lab">Timeline</span>
+            <select id="nm-timeline" class="edit-input">${timelineOptionsHTML("Q1 Planned")}</select></label>
+          <label class="form-field"><span class="form-lab">Status</span>
+            <select id="nm-status" class="edit-input">
+              <option value="draft" selected>Draft</option>
+              <option value="review">In Review</option>
+              <option value="published">Published</option>
+            </select></label>
+        </div>
+        <label class="form-field"><span class="form-lab">In charge (select any)</span>
+          <div class="team-pick">
+            ${DATA.people.map(p => `<label><input type="checkbox" class="nm-owner-cb" value="${p.id}"> ${esc(p.name)}</label>`).join("")}
+          </div>
+        </label>
+        <label class="form-field"><span class="form-lab">Attach documents (optional)</span>
+          <input id="nm-files" class="edit-input file-input" type="file" multiple>
+          <span class="edit-help" style="margin-top:6px;display:block">These attach to this module — you can add or remove them later on the module's page.</span>
+        </label>
+      </div>
+      <div class="form-actions">
+        <button class="btn" type="button" data-create-module>${I.plus} Create module</button>
+        <button class="btn ghost" type="button" data-back-dash>Cancel</button>
+      </div>
+    </div>`;
+  window.scrollTo(0, 0);
+  const nm = document.getElementById("nm-name"); if (nm) nm.focus();
+}
+
 function renderCourse(slug) {
   const c = findCourse(slug);
   const title = c ? c.title : "Course";
   crumb.textContent = "Edge Academy · " + title;
+  if (c && c.view === "dashboard") { app.innerHTML = pageShell(courseDashboard(c)); attachDashboardHandlers(); return; }
+  const extra = `<div class="soon">This is the dedicated page for <strong>${esc(title)}</strong>. Drop the syllabus, lessons or enrolment link here.</div>`;
   app.innerHTML = pageShell(`
     <div class="page-card" style="${accentVars('edge')}">
       <span class="badge">${I.cap} Edge Academy · Course</span><h2>${esc(title)}</h2>
       <p class="lead">${c ? esc(c.sub) : "This course no longer exists."}</p>
-      <div class="soon">This is the dedicated page for <strong>${esc(title)}</strong>. Drop the syllabus, lessons or enrolment link here.</div>
+      ${extra}
     </div>`);
 }
 
@@ -808,9 +1382,6 @@ function renderDetail(slug) {
     </div>`);
 }
 
-/* =========================================================================
-   CONNECTOR DRAWING
-   ========================================================================= */
 function drawWires() {
   const org = document.getElementById("org");
   const svg = document.getElementById("wires");
@@ -843,9 +1414,6 @@ function drawWires() {
   svg.innerHTML = paths;
 }
 
-/* =========================================================================
-   ROUTER  (internal routes stay in THIS tab — no localhost re-fetch)
-   ========================================================================= */
 function route() {
   if (orgObserver) { orgObserver.disconnect(); orgObserver = null; }
   const h = location.hash.replace(/^#\/?/, "");
@@ -853,6 +1421,8 @@ function route() {
   else if (h === "courses")         renderCourses();
   else if (h === "community")       renderCommunity();
   else if (h === "social")          renderSocial();
+  else if (h === "new-module")      renderNewModule();
+  else if (h.startsWith("module/")) renderModuleDetail(h.slice(7));
   else if (h.startsWith("page/"))   renderDetail(h.slice(5));
   else if (h.startsWith("course/")) renderCourse(h.slice(7));
   else                              renderHome();
@@ -860,24 +1430,18 @@ function route() {
 }
 const reRender = () => route();
 
-/* =========================================================================
-   NAVIGATION (view mode)
-   ========================================================================= */
 function navigate(leaf) {
   switch (leaf.nav) {
-    case "view": location.hash = "#/" + (leaf.target || "");           break; // same tab
-    case "page": location.hash = "#/page/" + (leaf.target || "");      break; // same tab
+    case "view": location.hash = "#/" + (leaf.target || "");           break;
+    case "page": location.hash = "#/page/" + (leaf.target || "");      break;
     case "ext":
       if (leaf.target && leaf.target !== "#") window.open(leaf.target, "_blank", "noopener");
       else toast("No URL set for this link yet.");
       break;
-    default: /* none */ break;
+    default: break;
   }
 }
 
-/* =========================================================================
-   EDIT-MODE WIRING
-   ========================================================================= */
 function setField(path, value) {
   const p = path.split(".");
   switch (p[0]) {
@@ -917,7 +1481,6 @@ function delRecord(spec) {
 }
 
 function onChangeSelectOrCheck(el) {
-  // accent / nav selects
   const ch = el.getAttribute("data-change");
   if (ch) {
     const p = ch.split(".");
@@ -927,13 +1490,11 @@ function onChangeSelectOrCheck(el) {
       if (r) {
         r[p[3]] = el.value; touch(r);
         if (p[3] === "nav") {
-          // when the action changes, give the target a sensible default for that action
           if (r.nav === "view" && !["courses", "community", "social"].includes(r.target)) r.target = "courses";
           else if (r.nav === "ext" && !/^https?:/i.test(r.target || "")) r.target = "";
           else if (r.nav === "none") r.target = "";
           else if (r.nav === "page") { if (!r.target || ["courses","community","social"].includes(r.target)) r.target = slugify(r.lbl); }
         }
-        // ensure an info page exists to back a "page" item
         if (r.nav === "page" && r.target && !DATA.pages[r.target]) {
           DATA.pages[r.target] = { title: r.lbl, project: "", accent: "edge", desc: "", lastEdited: now() };
         }
@@ -941,7 +1502,6 @@ function onChangeSelectOrCheck(el) {
     }
     save(); reRender(); return;
   }
-  // owner checkboxes
   const team = el.getAttribute("data-team");
   if (team) {
     const pr = findProject(team);
@@ -954,7 +1514,6 @@ function onChangeSelectOrCheck(el) {
   }
 }
 
-/* ---- editor toolbar actions ---- */
 function setEditing(on) {
   editing = on;
   document.body.classList.toggle("editing", on);
@@ -982,6 +1541,8 @@ function importJSON(file) {
       DATA = parsed;
       if (!DATA.settings) DATA.settings = clone(DEFAULT_DATA.settings);
       DATA.links = Object.assign({}, clone(DEFAULT_DATA.links), DATA.links || {});
+      DATA.dashboard = Object.assign({}, clone(DEFAULT_DATA.dashboard), DATA.dashboard || {});
+      normalizeDashboard();
       if (!DATA.pages) DATA.pages = {};
       seedTimestamps(DATA);
       save(); location.hash = ""; reRender();
@@ -997,23 +1558,22 @@ function resetAll() {
   toast("Reset to defaults.");
 }
 
-/* =========================================================================
-   GLOBAL EVENT WIRING
-   ========================================================================= */
 document.getElementById("editToggle").addEventListener("click", () => setEditing(!editing));
 document.getElementById("exportBtn").addEventListener("click", exportJSON);
 document.getElementById("resetBtn").addEventListener("click", resetAll);
 document.getElementById("importInput").addEventListener("change", (e) => { if (e.target.files[0]) importJSON(e.target.files[0]); e.target.value = ""; });
 document.getElementById("homeLogo").addEventListener("click", () => { location.hash = ""; });
 
-/* text inputs / textareas — update model only (no re-render → keeps focus) */
 app.addEventListener("input", (e) => {
   const bind = e.target.getAttribute && e.target.getAttribute("data-bind");
-  if (bind) setField(bind, e.target.value);
+  if (bind) { setField(bind, e.target.value); return; }
+  const mb = e.target.getAttribute && e.target.getAttribute("data-mod-bind");
+  if (mb) setModuleField(e.target.getAttribute("data-id"), mb, e.target.value, false);
 });
 
-/* selects + checkboxes */
 app.addEventListener("change", (e) => {
+  if (e.target.matches("[data-mod-change]")) { setModuleField(e.target.getAttribute("data-id"), e.target.getAttribute("data-mod-change"), e.target.value, true); return; }
+  if (e.target.matches("[data-mod-owner]")) { toggleModuleOwner(e.target.getAttribute("data-id"), e.target.getAttribute("data-mod-owner"), e.target.checked); return; }
   if (e.target.matches("[data-change], [data-team]")) onChangeSelectOrCheck(e.target);
   if (e.target.id === "cleanupToggle") {
     if (e.target.checked && !confirm("Enable auto-cleanup? Items not edited within the selected window will be permanently deleted (on load and when you run it). Export a backup first.")) {
@@ -1026,16 +1586,27 @@ app.addEventListener("change", (e) => {
   if (e.target.id === "retentionSelect") { DATA.settings.retentionMonths = parseInt(e.target.value, 10); save(); }
 });
 
-/* clicks: navigation, expand, add/delete, back, cleanup-now */
 app.addEventListener("click", (e) => {
   const t = e.target;
   if (t.closest("[data-back]")) { location.hash = ""; return; }
   if (t.id === "cleanupNow") { runCleanup(true); reRender(); return; }
 
+  if (t.closest("[data-noop]")) { toast("This control isn't wired up yet."); return; }
+
+  if (t.closest("[data-dash-add-module]")) { location.hash = "#/new-module"; return; }
+  if (t.closest("[data-create-module]")) { submitNewModule(); return; }
+  if (t.closest("[data-back-dash]")) { location.hash = "#/course/ai-foundations"; return; }
+  const moEl = t.closest("[data-mod-open]"); if (moEl) { location.hash = "#/module/" + moEl.getAttribute("data-id"); return; }
+  const dmEl = t.closest("[data-dash-del-module]"); if (dmEl) { delModule(dmEl.getAttribute("data-id")); return; }
+  if (t.closest("[data-dash-apply]")) { applyRecommendation(); return; }
+  if (t.closest("[data-dash-activity-toggle]")) { dashActivityExpanded = !dashActivityExpanded; refreshDashboard(); return; }
+  const drEl = t.closest("[data-dash-del-res]"); if (drEl) { delResource(drEl.getAttribute("data-id")); return; }
+  const mfEl = t.closest("[data-mod-del-file]"); if (mfEl) { delModuleFile(mfEl.getAttribute("data-mid"), mfEl.getAttribute("data-fid")); return; }
+
   const del = t.closest("[data-del]"); if (del) { delRecord(del.getAttribute("data-del")); return; }
   const add = t.closest("[data-add]"); if (add) { addRecord(add.getAttribute("data-add")); return; }
 
-  if (editing) return; // no navigation while editing
+  if (editing) return;
 
   const course = t.closest("[data-course]");
   if (course) { location.hash = "#/course/" + course.getAttribute("data-course"); return; }
@@ -1054,7 +1625,6 @@ app.addEventListener("click", (e) => {
   }
 });
 
-/* keyboard activation for nodes (a11y) */
 app.addEventListener("keydown", (e) => {
   if (e.key !== "Enter" && e.key !== " " && e.key !== "Spacebar") return;
   if (editing) return;
@@ -1068,7 +1638,6 @@ let resizeT = null;
 window.addEventListener("resize", () => { clearTimeout(resizeT); resizeT = setTimeout(drawWires, 80); });
 window.addEventListener("hashchange", route);
 
-/* ---- boot ---- */
 load();
 document.getElementById("editToggle").innerHTML = I.pencil + "Edit";
 route();
