@@ -773,10 +773,12 @@ function load() {
   DATA.dashboard = Object.assign({}, clone(DEFAULT_DATA.dashboard), DATA.dashboard || {});
   normalizeDashboard();
   if (!DATA.pages) DATA.pages = {};
-  // bring across any default course fields (e.g. the dashboard view) a previously-saved copy lacks
+  // bring across any default course fields (e.g. the dashboard view) a previously-saved copy lacks,
+  // and add any brand-new default courses that a returning browser's saved copy doesn't have yet
+  if (!DATA.courses) DATA.courses = [];
   (DEFAULT_DATA.courses || []).forEach(dc => {
-    const sc = (DATA.courses || []).find(c => c.slug === dc.slug);
-    if (!sc) return;
+    let sc = (DATA.courses || []).find(c => c.slug === dc.slug);
+    if (!sc) { DATA.courses.push(clone(dc)); return; }
     Object.keys(dc).forEach(k => { if (sc[k] == null) sc[k] = dc[k]; });
     if (sc.view === "dashboard" && sc.code) delete sc.code;
     if (sc.view === "dashboard" && dc.dashboard) {
