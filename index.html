@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Edge Academy ¬∑ MyRepublic AI Team</title>
+<title>Edge Academy &middot; MyRepublic AI Team</title>
 <style>
 :root {
   /* Edge Academy brand palette */
@@ -255,10 +255,33 @@ textarea.edit-input { resize: vertical; min-height: 46px; line-height: 1.4; }
 .tile-moves { display: flex; align-items: center; gap: 6px; margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--line); }
 .tile-moves-lbl { font-size: .72rem; color: var(--ink-soft); font-weight: 600; }
 
+/* stats row */
+.c-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 18px; }
+@media (max-width: 560px) { .c-stats { grid-template-columns: 1fr; } }
+.c-stat { background: #fbfdff; border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; display: flex; flex-direction: column; gap: 4px; }
+.c-stat-ico { width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center; color: #fff; background: var(--accent); margin-bottom: 4px; }
+.c-stat-ico .icon { width: 17px; height: 17px; }
+.c-stat-num { font-size: 1.7rem; font-weight: 800; line-height: 1.05; color: var(--ink); }
+.c-stat-lab { font-size: .74rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--ink-soft); }
+
+/* dashboard sections */
+.c-section { margin-top: 30px; }
+.c-sec-title { display: flex; align-items: center; gap: 8px; margin: 0 0 12px; font-size: 1.05rem; font-weight: 800; color: var(--ink); }
+.c-sec-title .icon { width: 18px; height: 18px; color: var(--accent-ink); }
+.c-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.c-li { border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 10px; padding: 12px 14px; background: #fbfdff; font-size: .9rem; line-height: 1.5; color: var(--ink); }
+.c-li-ai { border-left-color: var(--marketplace); background: color-mix(in srgb, var(--marketplace) 6%, #fbfdff); }
+.c-li-link { display: inline-flex; align-items: center; gap: 7px; color: var(--brand-ink); text-decoration: none; font-weight: 600; }
+.c-li-link:hover { text-decoration: underline; }
+.c-li-link .icon { width: 13px; height: 13px; }
+.c-empty { margin: 0; padding: 14px 16px; border-radius: 10px; background: #fbfdff; border: 1px dashed var(--line); color: var(--ink-soft); font-size: .86rem; font-style: italic; }
+.cl-edit { border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 12px; padding: 12px 14px; margin-top: 12px; background: #fbfdff; }
+.editing .c-section { margin-top: 26px; }
+
 .hint { text-align: center; color: var(--ink-soft); font-size: .78rem; margin-top: 36px; }
 .footnote { text-align: center; color: var(--ink-soft); font-size: .72rem; margin-top: 18px; opacity: .8; }
 
-/* Hover tooltips removed ‚Äî the soft drop shadow on hover (above) is the only hover cue. */
+/* Hover tooltips removed - the soft drop shadow on hover (above) is the only hover cue. */
 
 /* toast */
 .toast {
@@ -284,7 +307,7 @@ textarea.edit-input { resize: vertical; min-height: 46px; line-height: 1.4; }
 </head>
 <body>
   <div class="topbar">
-    <button class="logo" id="homeLogo" title="Back to team map" aria-label="Edge Academy ‚Äî back to team map">
+    <button class="logo" id="homeLogo" title="Back to team map" aria-label="Edge Academy &mdash; back to team map">
       <svg class="mark" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#16b8c4"/><stop offset="1" stop-color="#2f7fe8"/></linearGradient></defs>
         <path d="M24 3 L45 45 L31 45 L24 30 L17 45 L3 45 Z" fill="url(#lg)"/>
@@ -304,7 +327,7 @@ textarea.edit-input { resize: vertical; min-height: 46px; line-height: 1.4; }
     </div>
   </div>
 
-  <div class="editmode-banner">You're editing. Click any box to change its text. Use <strong>+ Add</strong> / <strong>&times;</strong> to add or remove. Changes save automatically in this browser ‚Äî press <strong>Export</strong> to send them to someone else, then <strong>Done</strong> when finished.</div>
+  <div class="editmode-banner">You're editing. Click any box to change its text. Use <strong>+ Add</strong> / <strong>&times;</strong> to add or remove. Changes save automatically in this browser &mdash; press <strong>Export</strong> to send them to someone else, then <strong>Done</strong> when finished.</div>
 
   <div class="wrap" id="app"><!-- rendered by the script below --></div>
 
@@ -312,7 +335,7 @@ textarea.edit-input { resize: vertical; min-height: 46px; line-height: 1.4; }
 
 <script>
 /* =========================================================================
-   MyRepublic AI Team ‚Äî connected flowchart (self-contained single file)
+   MyRepublic AI Team - connected flowchart (self-contained single file)
    Single source of editable content lives in DEFAULT_DATA below.
    Anyone with the file can edit content in the browser (Edit button),
    which autosaves to this browser, and can Export/Import a JSON to share.
@@ -323,7 +346,7 @@ const STORAGE_KEY = "mr-ai-flowchart-v1";
 /* ---- default content (used on first load / Reset) ---- */
 const DEFAULT_DATA = {
   settings: { autoCleanup: false, retentionMonths: 6 },
-  head: { name: "Imran", role: "Head of AI", tip: "Head of AI ‚Äî oversees the entire AI team and all projects." },
+  head: { name: "Imran", role: "Head of AI", tip: "Head of AI - oversees the entire AI team and all projects." },
   people: [
     { id: "jeremy",   name: "Jeremy",    tip: "Works across Edge Academy, Consulting & Marketplace." },
     { id: "raph",     name: "Raph",      tip: "Works on Edge Academy." },
@@ -335,7 +358,7 @@ const DEFAULT_DATA = {
     { id: "edge", name: "Edge Academy", accent: "edge", team: ["jeremy","raph"], tip: "Practical, hands-on AI & automation courses.",
       leaves: [
         { id: "courses",   lbl: "Courses",      nav: "view", target: "courses",   tip: "Open the full course catalogue" },
-        { id: "community", lbl: "Community",    nav: "view", target: "community", tip: "Our communities ‚Äî Skool & Edge Academy" },
+        { id: "community", lbl: "Community",    nav: "view", target: "community", tip: "Our communities - Skool & Edge Academy" },
         { id: "social",    lbl: "Social Media", nav: "view", target: "social",    tip: "Instagram & LinkedIn" },
       ] },
     { id: "consulting", name: "Consulting", accent: "consulting", team: ["jeremy","joel"], tip: "Advisory & implementation engagements.",
@@ -355,7 +378,7 @@ const DEFAULT_DATA = {
       ] },
   ],
   pages: {
-    "free-tier":               { title: "Free Tier",               project: "Consulting",  accent: "consulting",  desc: "Entry-level consulting engagement ‚Äî assessment and starter guidance at no cost." },
+    "free-tier":               { title: "Free Tier",               project: "Consulting",  accent: "consulting",  desc: "Entry-level consulting engagement - assessment and starter guidance at no cost." },
     "paid-tier":               { title: "Paid Tier",               project: "Consulting",  accent: "consulting",  desc: "Full paid advisory and implementation engagement with the AI team." },
     "ai-chatbot":              { title: "AI Chatbot",              project: "Marketplace", accent: "marketplace", desc: "Conversational AI chatbot product available through the Marketplace." },
     "ai-integration-services": { title: "AI Integration Services", project: "Marketplace", accent: "marketplace", desc: "Connect AI capabilities into your existing systems and workflows." },
@@ -381,7 +404,7 @@ const ACCENT_LABELS = { edge: "Blue", consulting: "Teal", marketplace: "Purple",
 const RETENTION_OPTIONS = [1, 3, 4, 6, 12, 24, 36];
 
 /* Shared curriculum-roadmap layout. Every course uses this same skeleton, so
-   adding a new course reproduces the exact layout of the other set-up courses ‚Äî
+   adding a new course reproduces the exact layout of the other set-up courses -
    you just fill in the blanks. */
 const COURSE_ROADMAP_TEMPLATE = [
   { phase: "Start Here", title: "Course Overview & Goals", detail: "" },
@@ -412,6 +435,10 @@ const I = {
   dot:      '<svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><circle cx="12" cy="12" r="5"/></svg>',
   up:       '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>',
   down:     '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>',
+  activity: '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>',
+  book:     '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',
+  sparkle:  '<svg class="icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2l1.9 6.1L20 10l-6.1 1.9L12 18l-1.9-6.1L4 10l6.1-1.9L12 2z"/></svg>',
+  clock:    '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15 14"/></svg>',
 };
 const leafIcons = { "Courses": I.cap, "Community": I.community, "Social Media": I.share };
 
@@ -471,12 +498,26 @@ function load() {
    curriculum roadmap. */
 function migrateCourses(d) {
   (d.courses || []).forEach(c => {
-    if (typeof c.level    !== "string") c.level = "";
-    if (typeof c.duration !== "string") c.duration = "";
-    if (typeof c.intro    !== "string") c.intro = "";
+    if (typeof c.level            !== "string") c.level = "";
+    if (typeof c.duration         !== "string") c.duration = "";
+    if (typeof c.intro            !== "string") c.intro = "";
+    if (typeof c.studentsEnrolled !== "string") c.studentsEnrolled = "";
+    if (typeof c.completionRate   !== "string") c.completionRate = "";
     if (!Array.isArray(c.roadmap)) c.roadmap = newRoadmap();
     c.roadmap.forEach(m => { if (!m.id) m.id = genId("mod"); });
+    // the four secondary dashboard sections start blank on every course
+    ["activity", "resources", "adjustments", "comingSoon"].forEach(k => {
+      if (!Array.isArray(c[k])) c[k] = [];
+      c[k].forEach(it => { if (!it.id) it.id = genId("it"); });
+    });
   });
+}
+
+/* A fresh, fully-blank course carrying the shared dashboard layout. */
+function blankCourse() {
+  return { slug: genId("course"), title: "New course", sub: "", level: "", duration: "",
+           intro: "", studentsEnrolled: "", completionRate: "", roadmap: newRoadmap(),
+           activity: [], resources: [], adjustments: [], comingSoon: [], lastEdited: now() };
 }
 
 function save() {
@@ -495,7 +536,7 @@ function toast(msg, ms) {
 }
 
 /* =========================================================================
-   AUTO-CLEANUP ‚Äî delete items not edited within the retention window
+   AUTO-CLEANUP - delete items not edited within the retention window
    ========================================================================= */
 function cutoffTime(months) {
   const d = new Date();
@@ -506,7 +547,7 @@ function cutoffTime(months) {
 function runCleanup(manual) {
   const s = DATA.settings;
   if (!s.autoCleanup) {
-    if (manual) toast("Auto-cleanup is disabled ‚Äî enable it first.");
+    if (manual) toast("Auto-cleanup is disabled - enable it first.");
     return;
   }
   const cutoff = cutoffTime(s.retentionMonths);
@@ -525,7 +566,7 @@ function runCleanup(manual) {
     if (stale(pr)) { removed.push("Project: " + pr.name); return; }
     pr.team = (pr.team || []).filter(id => peopleIds.has(id));
     const keptLeaves = [];
-    (pr.leaves || []).forEach(lf => { if (stale(lf)) removed.push("Item: " + pr.name + " ‚Ä∫ " + lf.lbl); else keptLeaves.push(lf); });
+    (pr.leaves || []).forEach(lf => { if (stale(lf)) removed.push("Item: " + pr.name + " > " + lf.lbl); else keptLeaves.push(lf); });
     pr.leaves = keptLeaves;
     keptProjects.push(pr);
   });
@@ -545,8 +586,8 @@ function runCleanup(manual) {
     DATA._lastCleanup = { when: now(), summary, removed };
     if (manual) toast(summary);
   } else if (manual) {
-    DATA._lastCleanup = { when: now(), summary: "Nothing to remove ‚Äî all items edited within the window.", removed: [] };
-    toast("Nothing to remove ‚Äî everything is within the window.");
+    DATA._lastCleanup = { when: now(), summary: "Nothing to remove - all items edited within the window.", removed: [] };
+    toast("Nothing to remove - everything is within the window.");
   }
 }
 
@@ -559,10 +600,10 @@ const findLeaf    = (pid, lid) => { const pr = findProject(pid); return pr && (p
 const findCourse  = (slug) => (DATA.courses || []).find(c => c.slug === slug);
 
 /* =========================================================================
-   VIEWS ‚Äî HOME
+   VIEWS - HOME
    ========================================================================= */
 function renderHome() {
-  crumb.textContent = "AI Team Map ¬∑ Connected";
+  crumb.textContent = "AI Team Map / Connected";
 
   const people = DATA.people.map(p => editing
     ? `<div class="card person-node" data-rec="person" data-id="${p.id}">
@@ -581,7 +622,7 @@ function renderHome() {
   const projects = DATA.projects.map((pr, i) => {
     const leaves = pr.leaves.map(l => editing ? editLeaf(pr, l) : viewLeaf(pr, l)).join("");
     const addLeaf = editing ? `<button class="add-leaf" data-add="leaf.${pr.id}">+ Add item</button>` : "";
-    const ownersText = pr.team.map(id => { const pp = findPerson(id); return pp ? pp.name : null; }).filter(Boolean).join(" ¬∑ ") || "‚Äî";
+    const ownersText = pr.team.map(id => { const pp = findPerson(id); return pp ? pp.name : null; }).filter(Boolean).join(" / ") || "-";
 
     const headerInner = editing
       ? `<div style="flex:1">
@@ -604,7 +645,7 @@ function renderHome() {
          <span class="chevron">${I.chevron}</span>`;
 
     // In edit mode the header holds form controls, so it must be a <div>, not a
-    // <button> (a button can't legally contain inputs/selects/buttons ‚Äî that nests projects).
+    // <button> (a button can't legally contain inputs/selects/buttons - that nests projects).
     const headerEl = editing
       ? `<div class="project-header project-edit" id="h-${pr.id}">${headerInner}</div>`
       : `<button class="project-header" id="h-${pr.id}" aria-expanded="false" data-tip="${esc(pr.tip)}">${headerInner}</button>`;
@@ -632,8 +673,8 @@ function renderHome() {
 
   app.innerHTML = `
     <div class="hero">
-      <h1>MyRepublic ¬∑ AI Team</h1>
-      <p>Connected org &amp; ownership map ‚Äî lines link each person to the projects they own</p>
+      <h1>MyRepublic &middot; AI Team</h1>
+      <p>Connected org &amp; ownership map &mdash; lines link each person to the projects they own</p>
     </div>
     <div class="legend">
       <span><i class="swatch" style="background:var(--edge)"></i> Edge Academy</span>
@@ -653,7 +694,7 @@ function renderHome() {
 
     ${editing ? maintenancePanel() : `
       <div class="hint">Tip: click or press Enter on a project to expand. Built-in pages open in this tab; website links (like Skool & Edge Academy) open in a new tab.</div>
-      <div class="footnote">Built to the UI/UX Pro Max checklist ‚Äî SVG icons, AA contrast, keyboard focus, 44px targets, reduced-motion safe.</div>`}
+      <div class="footnote">Built to the UI/UX Pro Max checklist &mdash; SVG icons, AA contrast, keyboard focus, 44px targets, reduced-motion safe.</div>`}
   `;
 
   // connectors only meaningful in view mode (ids exist there)
@@ -725,8 +766,8 @@ function maintenancePanel() {
   const last = DATA._lastCleanup;
   return `
     <div class="maint">
-      <h3>Maintenance ¬∑ auto-cleanup</h3>
-      <p class="note">When enabled, items (people, projects, items, courses, pages) that haven't been edited within the chosen window are deleted ‚Äî on load and when you press "Run now". Editing any field resets that item's timer. The Head of AI node is never auto-deleted. <strong>This is destructive; Export a backup first.</strong></p>
+      <h3>Maintenance &middot; auto-cleanup</h3>
+      <p class="note">When enabled, items (people, projects, items, courses, pages) that haven't been edited within the chosen window are deleted &mdash; on load and when you press "Run now". Editing any field resets that item's timer. The Head of AI node is never auto-deleted. <strong>This is destructive; Export a backup first.</strong></p>
       <div class="ctl">
         <label class="switch"><input type="checkbox" id="cleanupToggle" ${s.autoCleanup ? "checked" : ""}> Enable auto-cleanup</label>
         <label class="switch" style="font-weight:500">Delete items not edited in the last
@@ -742,14 +783,14 @@ function maintenancePanel() {
 }
 
 /* =========================================================================
-   VIEWS ‚Äî SUB PAGES
+   VIEWS - SUB PAGES
    ========================================================================= */
 function pageShell(inner) {
   return `<button class="back" data-back>${I.back}<span>Back to team map</span></button>${inner}`;
 }
 
 function renderCourses() {
-  crumb.textContent = "Edge Academy ¬∑ Courses";
+  crumb.textContent = "Edge Academy / Courses";
   const last = DATA.courses.length - 1;
   const tiles = DATA.courses.map((c, i) => editing
     ? `<div class="tile" style="cursor:default">
@@ -775,20 +816,29 @@ function renderCourses() {
     <div class="page-card" style="${accentVars('edge')}">
       <span class="badge">${I.cap} Edge Academy</span><h2>Courses</h2>
       <p class="lead">Browse the Edge Academy catalogue. Each course opens on its own page.</p>
-      ${editing ? `<p class="edit-help">Use the <strong>‚Üë ‚Üì</strong> arrows to reorder courses. Press <strong>+ Add course</strong> to create one ‚Äî it opens with the same curriculum-roadmap layout ready to fill in.</p>` : ""}
+      ${editing ? `<p class="edit-help">Use the <strong>&uarr; &darr;</strong> arrows to reorder courses. Press <strong>+ Add course</strong> to create one &mdash; it opens with the same curriculum-roadmap layout ready to fill in.</p>` : ""}
       <div class="grid-list">${tiles}${addC}</div>
     </div>`);
 }
 
+/* The four secondary course sections. Each uses the same generic list, so every
+   course shares the exact same dashboard layout and new courses start blank. */
+const COURSE_SECTIONS = [
+  { key: "activity",    title: "Recent Activity",            ico: "activity", noun: "activity update", empty: "No activity logged yet.",  fields: [{ key: "text", label: "Update", type: "textarea", ph: "e.g. Module 2 lessons uploaded" }] },
+  { key: "resources",   title: "Resource Library",           ico: "book",     noun: "resource",        empty: "No resources added yet.",  fields: [{ key: "name", label: "Resource name", type: "input", ph: "e.g. Slides - Module 1" }, { key: "url", label: "Link (optional)", type: "input", ph: "https://..." }] },
+  { key: "adjustments", title: "AI Recommended Adjustments", ico: "sparkle",  noun: "recommendation",  empty: "No recommendations yet.",  fields: [{ key: "text", label: "Recommendation", type: "textarea", ph: "e.g. Add a hands-on exercise to Module 3" }] },
+  { key: "comingSoon",  title: "Coming Soon",                ico: "clock",    noun: "item",            empty: "Nothing scheduled yet.",   fields: [{ key: "text", label: "Upcoming item", type: "textarea", ph: "e.g. Live Q&amp;A workshop" }] },
+];
+
 function renderCourse(slug) {
   const c = findCourse(slug);
   const title = c ? c.title : "Course";
-  crumb.textContent = "Edge Academy ¬∑ " + title;
+  crumb.textContent = "Edge Academy / " + title;
 
   if (!c) {
     app.innerHTML = pageShell(`
       <div class="page-card" style="${accentVars('edge')}">
-        <span class="badge">${I.cap} Edge Academy ¬∑ Course</span><h2>Course</h2>
+        <span class="badge">${I.cap} Edge Academy &middot; Course</span><h2>Course</h2>
         <p class="lead">This course no longer exists.</p>
       </div>`);
     return;
@@ -798,34 +848,76 @@ function renderCourse(slug) {
 
   const meta = [
     c.level    ? `<span class="c-chip">${I.dot}<span>${esc(c.level)}</span></span>` : "",
-    c.duration ? `<span class="c-chip">${I.cap}<span>${esc(c.duration)}</span></span>` : "",
+    c.duration ? `<span class="c-chip">${I.clock}<span>${esc(c.duration)}</span></span>` : "",
   ].join("");
 
-  const roadmap = (c.roadmap || []);
-  const roadmapHtml = roadmap.length ? `
-    <h3 class="c-rm-title">${I.layers}<span>Curriculum roadmap</span></h3>
-    <div class="roadmap">${roadmap.map((m, i) => `
-      <div class="rm-item">
-        <div class="rm-rail"><div class="rm-num">${i + 1}</div><div class="rm-line"></div></div>
-        <div class="rm-body">
-          ${m.phase ? `<div class="rm-phase">${esc(m.phase)}</div>` : ""}
-          <div class="rm-title">${esc(m.title || "Untitled module")}</div>
-          ${m.detail ? `<div class="rm-detail">${esc(m.detail)}</div>` : `<div class="rm-detail empty">To be added ‚Äî open this course in Edit mode to fill it in.</div>`}
-        </div>
-      </div>`).join("")}
-    </div>` : "";
+  // Stats row: Total Modules is derived from the roadmap; the other two are filled in.
+  const modules = (c.roadmap || []);
+  const numOrDash = (v) => v ? esc(v) : "&mdash;";
+  const stat = (val, label, ico) => `
+    <div class="c-stat">
+      <span class="c-stat-ico">${ico}</span>
+      <span class="c-stat-num">${val}</span>
+      <span class="c-stat-lab">${label}</span>
+    </div>`;
+  const stats = `
+    <div class="c-stats">
+      ${stat(String(modules.length), "Total Modules", I.layers)}
+      ${stat(numOrDash(c.studentsEnrolled), "Students Enrolled", I.community)}
+      ${stat(numOrDash(c.completionRate), "Completion Rate", I.dot)}
+    </div>`;
+
+  const roadmapHtml = modules.length ? `
+    <section class="c-section">
+      <h3 class="c-sec-title">${I.layers}<span>Curriculum Roadmap</span></h3>
+      <div class="roadmap">${modules.map((m, i) => `
+        <div class="rm-item">
+          <div class="rm-rail"><div class="rm-num">${i + 1}</div><div class="rm-line"></div></div>
+          <div class="rm-body">
+            ${m.phase ? `<div class="rm-phase">${esc(m.phase)}</div>` : ""}
+            <div class="rm-title">${esc(m.title || "Untitled module")}</div>
+            ${m.detail ? `<div class="rm-detail">${esc(m.detail)}</div>` : `<div class="rm-detail empty">To be added &mdash; open this course in Edit mode to fill it in.</div>`}
+          </div>
+        </div>`).join("")}
+      </div>
+    </section>` : "";
+
+  const sections = COURSE_SECTIONS.map(sec => {
+    const items = (c[sec.key] || []);
+    const body = items.length
+      ? `<ul class="c-list">${items.map(it => viewListItem(sec.key, it)).join("")}</ul>`
+      : `<p class="c-empty">${sec.empty}</p>`;
+    return `
+      <section class="c-section">
+        <h3 class="c-sec-title">${I[sec.ico]}<span>${sec.title}</span></h3>
+        ${body}
+      </section>`;
+  }).join("");
 
   app.innerHTML = pageShell(`
     <div class="page-card" style="${accentVars('edge')}">
-      <span class="badge">${I.cap} Edge Academy ¬∑ Course</span>
+      <span class="badge">${I.cap} Edge Academy &middot; Course</span>
       <h2>${esc(title)}</h2>
       <p class="lead">${esc(c.intro || c.sub || "")}</p>
       ${meta ? `<div class="c-meta">${meta}</div>` : ""}
+      ${stats}
       ${roadmapHtml}
+      ${sections}
     </div>`);
 }
 
-/* Course detail page in edit mode ‚Äî the shared roadmap layout with blanks to fill. */
+function viewListItem(key, it) {
+  if (key === "resources") {
+    const name = esc(it.name || "Untitled resource");
+    return it.url
+      ? `<li class="c-li"><a class="c-li-link" href="${esc(it.url)}" target="_blank" rel="noopener">${name} ${I.open}</a></li>`
+      : `<li class="c-li">${name}</li>`;
+  }
+  const cls = key === "adjustments" ? "c-li c-li-ai" : "c-li";
+  return `<li class="${cls}">${esc(it.text || "")}</li>`;
+}
+
+/* Course detail page in edit mode - the shared dashboard layout with blanks to fill. */
 function editCourse(c) {
   const roadmap = (c.roadmap || []);
   const last = roadmap.length - 1;
@@ -844,12 +936,31 @@ function editCourse(c) {
       <label class="edit-field"><span class="lab">Module title</span>
         <input class="edit-input" data-bind="module.${c.slug}.${m.id}.title" value="${esc(m.title)}" placeholder="What is this module about?"></label>
       <label class="edit-field"><span class="lab">Details (fill in the blank)</span>
-        <textarea class="edit-input" data-bind="module.${c.slug}.${m.id}.detail" placeholder="Lessons, outcomes, resources‚Ä¶">${esc(m.detail)}</textarea></label>
+        <textarea class="edit-input" data-bind="module.${c.slug}.${m.id}.detail" placeholder="Lessons, outcomes, resources...">${esc(m.detail)}</textarea></label>
     </div>`).join("");
+
+  const sections = COURSE_SECTIONS.map(sec => {
+    const items = (c[sec.key] || []);
+    const rows = items.map(it => `
+      <div class="cl-edit">
+        <div class="rm-edit-head"><span class="edit-kicker">${sec.title}</span>
+          <button class="del-btn" data-del="clist.${c.slug}.${sec.key}.${it.id}" title="Delete">&times;</button></div>
+        ${sec.fields.map(f => f.type === "textarea"
+          ? `<label class="edit-field"><span class="lab">${f.label}</span>
+               <textarea class="edit-input" data-bind="clist.${c.slug}.${sec.key}.${it.id}.${f.key}" placeholder="${f.ph}">${esc(it[f.key] || "")}</textarea></label>`
+          : `<label class="edit-field"><span class="lab">${f.label}</span>
+               <input class="edit-input" data-bind="clist.${c.slug}.${sec.key}.${it.id}.${f.key}" value="${esc(it[f.key] || "")}" placeholder="${f.ph}"></label>`
+        ).join("")}
+      </div>`).join("");
+    return `
+      <h3 class="c-sec-title">${I[sec.ico]}<span>${sec.title}</span></h3>
+      ${rows}
+      <button class="add-leaf" data-add="clist.${c.slug}.${sec.key}">+ Add ${sec.noun}</button>`;
+  }).join("");
 
   return `
     <div class="page-card" style="${accentVars('edge')}">
-      <span class="badge">${I.cap} Edge Academy ¬∑ Course</span>
+      <span class="badge">${I.cap} Edge Academy &middot; Course</span>
       <label class="edit-field"><span class="lab">Course title</span>
         <input class="edit-input" data-bind="course.${c.slug}.title" value="${esc(c.title)}"></label>
       <div class="c-meta-edit">
@@ -860,41 +971,49 @@ function editCourse(c) {
         <label class="edit-field"><span class="lab">Duration</span>
           <input class="edit-input" data-bind="course.${c.slug}.duration" value="${esc(c.duration || '')}" placeholder="e.g. 4 weeks"></label>
       </div>
+      <div class="c-meta-edit">
+        <label class="edit-field"><span class="lab">Students Enrolled</span>
+          <input class="edit-input" data-bind="course.${c.slug}.studentsEnrolled" value="${esc(c.studentsEnrolled || '')}" placeholder="e.g. 128"></label>
+        <label class="edit-field"><span class="lab">Completion Rate</span>
+          <input class="edit-input" data-bind="course.${c.slug}.completionRate" value="${esc(c.completionRate || '')}" placeholder="e.g. 72%"></label>
+      </div>
       <label class="edit-field"><span class="lab">Intro (one-paragraph overview)</span>
         <textarea class="edit-input" data-bind="course.${c.slug}.intro" placeholder="What will learners get from this course?">${esc(c.intro || '')}</textarea></label>
 
-      <h3 class="c-rm-title">${I.layers}<span>Curriculum roadmap</span></h3>
-      <p class="edit-help">Every course uses this same roadmap layout. Fill in the blanks below, reorder modules with the <strong>‚Üë ‚Üì</strong> arrows, or add/remove your own. Changes save automatically.</p>
+      <h3 class="c-sec-title">${I.layers}<span>Curriculum Roadmap</span></h3>
+      <p class="edit-help">Every course uses this same dashboard layout. Fill in the blanks below, reorder modules with the <strong>&uarr; &darr;</strong> arrows, or add/remove your own. Changes save automatically.</p>
       ${modules}
       <button class="add-leaf" data-add="module.${c.slug}">+ Add module</button>
+
+      ${sections}
     </div>`;
 }
 
 function renderSocial() {
-  crumb.textContent = "Edge Academy ¬∑ Social Media";
+  crumb.textContent = "Edge Academy / Social Media";
   const ig = DATA.links.instagram, li = DATA.links.linkedin;
   const tiles = editing
     ? `<div class="tile" style="cursor:default">
          <span class="t-icon" style="background:#e1306c">${I.instagram}</span>
          <span class="t-title">Instagram</span>
          <label class="edit-field"><span class="lab">URL</span>
-           <input class="edit-input" data-bind="link.instagram" value="${esc(ig)}" placeholder="https://instagram.com/‚Ä¶"></label>
+           <input class="edit-input" data-bind="link.instagram" value="${esc(ig)}" placeholder="https://instagram.com/&hellip;"></label>
        </div>
        <div class="tile" style="cursor:default">
          <span class="t-icon" style="background:#0a66c2">${I.linkedin}</span>
          <span class="t-title">LinkedIn</span>
          <label class="edit-field"><span class="lab">URL</span>
-           <input class="edit-input" data-bind="link.linkedin" value="${esc(li)}" placeholder="https://linkedin.com/‚Ä¶"></label>
+           <input class="edit-input" data-bind="link.linkedin" value="${esc(li)}" placeholder="https://linkedin.com/&hellip;"></label>
        </div>`
     : `<a class="tile" href="${esc(ig || "#")}" ${ig ? `target="_blank" rel="noopener"` : ""} aria-label="Instagram">
          <span class="t-icon" style="background:#e1306c">${I.instagram}</span>
          <span class="t-title">Instagram ${I.open}</span>
-         <span class="t-sub">${ig ? esc(ig) : "No URL yet ‚Äî add it in Edit mode"}</span>
+         <span class="t-sub">${ig ? esc(ig) : "No URL yet &mdash; add it in Edit mode"}</span>
        </a>
        <a class="tile" href="${esc(li || "#")}" ${li ? `target="_blank" rel="noopener"` : ""} aria-label="LinkedIn">
          <span class="t-icon" style="background:#0a66c2">${I.linkedin}</span>
          <span class="t-title">LinkedIn ${I.open}</span>
-         <span class="t-sub">${li ? esc(li) : "No URL yet ‚Äî add it in Edit mode"}</span>
+         <span class="t-sub">${li ? esc(li) : "No URL yet &mdash; add it in Edit mode"}</span>
        </a>`;
   app.innerHTML = pageShell(`
     <div class="page-card" style="${accentVars('edge')}">
@@ -905,30 +1024,30 @@ function renderSocial() {
 }
 
 function renderCommunity() {
-  crumb.textContent = "Edge Academy ¬∑ Community";
+  crumb.textContent = "Edge Academy / Community";
   const sk = DATA.links.skool, ea = DATA.links.edgeAcademy;
   const tiles = editing
     ? `<div class="tile" style="cursor:default">
          <span class="t-icon" style="background:#0f7df0">${I.community}</span>
          <span class="t-title">Skool</span>
          <label class="edit-field"><span class="lab">Website address (link)</span>
-           <input class="edit-input" data-bind="link.skool" value="${esc(sk)}" placeholder="https://www.skool.com/‚Ä¶"></label>
+           <input class="edit-input" data-bind="link.skool" value="${esc(sk)}" placeholder="https://www.skool.com/&hellip;"></label>
        </div>
        <div class="tile" style="cursor:default">
          <span class="t-icon" style="background:var(--edge)">${I.cap}</span>
          <span class="t-title">Edge Academy</span>
          <label class="edit-field"><span class="lab">Website address (link)</span>
-           <input class="edit-input" data-bind="link.edgeAcademy" value="${esc(ea)}" placeholder="https://www.edgeacademy.ai/‚Ä¶"></label>
+           <input class="edit-input" data-bind="link.edgeAcademy" value="${esc(ea)}" placeholder="https://www.edgeacademy.ai/&hellip;"></label>
        </div>`
     : `<a class="tile" href="${esc(sk || "#")}" ${sk ? `target="_blank" rel="noopener"` : ""} aria-label="Skool">
          <span class="t-icon" style="background:#0f7df0">${I.community}</span>
          <span class="t-title">Skool ${I.open}</span>
-         <span class="t-sub">${sk ? esc(sk) : "No URL yet ‚Äî add it in Edit mode"}</span>
+         <span class="t-sub">${sk ? esc(sk) : "No URL yet &mdash; add it in Edit mode"}</span>
        </a>
        <a class="tile" href="${esc(ea || "#")}" ${ea ? `target="_blank" rel="noopener"` : ""} aria-label="Edge Academy">
          <span class="t-icon" style="background:var(--edge)">${I.cap}</span>
          <span class="t-title">Edge Academy ${I.open}</span>
-         <span class="t-sub">${ea ? esc(ea) : "No URL yet ‚Äî add it in Edit mode"}</span>
+         <span class="t-sub">${ea ? esc(ea) : "No URL yet &mdash; add it in Edit mode"}</span>
        </a>`;
   app.innerHTML = pageShell(`
     <div class="page-card" style="${accentVars('edge')}">
@@ -941,7 +1060,7 @@ function renderCommunity() {
 function renderDetail(slug) {
   const d = DATA.pages[slug];
   if (!d) { location.hash = ""; return; }
-  crumb.textContent = d.project + " ¬∑ " + d.title;
+  crumb.textContent = d.project + " / " + d.title;
   const body = editing
     ? `<label class="edit-field"><span class="lab">Title</span>
          <input class="edit-input" data-bind="page.${slug}.title" value="${esc(d.title)}"></label>
@@ -993,7 +1112,7 @@ function drawWires() {
 }
 
 /* =========================================================================
-   ROUTER  (internal routes stay in THIS tab ‚Äî no localhost re-fetch)
+   ROUTER  (internal routes stay in THIS tab - no localhost re-fetch)
    ========================================================================= */
 function route() {
   if (orgObserver) { orgObserver.disconnect(); orgObserver = null; }
@@ -1036,6 +1155,7 @@ function setField(path, value) {
     case "leaf":    { const r = findLeaf(p[1], p[2]); if (r) { r[p[3]] = value; touch(r); } break; }
     case "course":  { const r = findCourse(p[1]); if (r) { r[p[2]] = value; touch(r); } break; }
     case "module":  { const c = findCourse(p[1]); if (c) { const m = (c.roadmap || []).find(x => x.id === p[2]); if (m) { m[p[3]] = value; touch(c); } } break; }
+    case "clist":   { const c = findCourse(p[1]); if (c && Array.isArray(c[p[2]])) { const it = c[p[2]].find(x => x.id === p[3]); if (it) { it[p[4]] = value; touch(c); } } break; }
     case "page":    { const r = DATA.pages[p[1]]; if (r) { r[p[2]] = value; touch(r); } break; }
     case "link":    DATA.links[p[1]] = value; break;
   }
@@ -1052,16 +1172,20 @@ function addRecord(spec) {
     const pr = findProject(p[1]);
     if (pr) pr.leaves.push({ id: genId("l"), lbl: "New item", nav: "none", target: "", tip: "", lastEdited: now() });
   } else if (p[0] === "course") {
-    // New courses inherit the shared roadmap layout, then open straight into
+    // New courses inherit the shared dashboard layout, then open straight into
     // their edit page so you can fill in the blanks.
-    const slug = genId("course");
-    DATA.courses.push({ slug, title: "New course", sub: "", level: "", duration: "", intro: "", roadmap: newRoadmap(), lastEdited: now() });
+    const c = blankCourse();
+    DATA.courses.push(c);
     save();
-    location.hash = "#/course/" + slug; // hashchange re-renders in edit mode
+    location.hash = "#/course/" + c.slug; // hashchange re-renders in edit mode
     return;
   } else if (p[0] === "module") {
     const c = findCourse(p[1]);
     if (c) { if (!Array.isArray(c.roadmap)) c.roadmap = []; c.roadmap.push({ id: genId("mod"), phase: "New module", title: "", detail: "" }); touch(c); }
+  } else if (p[0] === "clist") {
+    // p = ["clist", slug, sectionKey]
+    const c = findCourse(p[1]);
+    if (c) { if (!Array.isArray(c[p[2]])) c[p[2]] = []; c[p[2]].push({ id: genId("it"), text: "", name: "", url: "" }); touch(c); }
   }
   save(); reRender();
 }
@@ -1073,6 +1197,7 @@ function delRecord(spec) {
   else if (p[0] === "leaf") { const pr = findProject(p[1]); if (pr) pr.leaves = pr.leaves.filter(x => x.id !== p[2]); }
   else if (p[0] === "course") DATA.courses = DATA.courses.filter(x => x.slug !== p[1]);
   else if (p[0] === "module") { const c = findCourse(p[1]); if (c) { c.roadmap = (c.roadmap || []).filter(m => m.id !== p[2]); touch(c); } }
+  else if (p[0] === "clist")  { const c = findCourse(p[1]); if (c && Array.isArray(c[p[2]])) { c[p[2]] = c[p[2]].filter(it => it.id !== p[3]); touch(c); } }
   save(); reRender();
 }
 
@@ -1149,7 +1274,7 @@ function exportJSON() {
   a.href = url; a.download = "flowchart-data.json";
   document.body.appendChild(a); a.click(); a.remove();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
-  toast("Exported flowchart-data.json ‚Äî share this file to share your edits.");
+  toast("Exported flowchart-data.json - share this file to share your edits.");
 }
 
 function importJSON(file) {
@@ -1186,7 +1311,7 @@ document.getElementById("resetBtn").addEventListener("click", resetAll);
 document.getElementById("importInput").addEventListener("change", (e) => { if (e.target.files[0]) importJSON(e.target.files[0]); e.target.value = ""; });
 document.getElementById("homeLogo").addEventListener("click", () => { location.hash = ""; });
 
-/* text inputs / textareas ‚Äî update model only (no re-render ‚Üí keeps focus) */
+/* text inputs / textareas - update model only (no re-render -> keeps focus) */
 app.addEventListener("input", (e) => {
   const bind = e.target.getAttribute && e.target.getAttribute("data-bind");
   if (bind) setField(bind, e.target.value);
